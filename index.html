@@ -3,1002 +3,1033 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Naga Mas Motor – Customer Service Portal</title>
+  <title>Naga Mas Motor — Dealer Resmi Honda</title>
+  <meta name="description" content="Layanan pelanggan Naga Mas Motor: lacak BBN, booking service AHASS, dan cek jadwal KPB. Dealer Resmi Honda Tegal & Brebes.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
   <style>
-    /* ══════════════════════════════════════════
-       DESIGN TOKENS — Honda Corporate Palette
-    ══════════════════════════════════════════ */
-    :root {
-      --h-red:       #CC0000;
-      --h-red-dark:  #990000;
-      --h-red-light: #FF1A1A;
-      --h-red-tint:  rgba(204,0,0,.08);
-      --ink:         #111111;
-      --ink-60:      rgba(17,17,17,.60);
-      --ink-30:      rgba(17,17,17,.30);
-      --ink-10:      rgba(17,17,17,.07);
-      --white:       #FFFFFF;
-      --off-white:   #F6F6F6;
-      --silver:      #E4E4E4;
-      --ok-bg:       #EDF7F0; --ok-text: #1A6630; --ok-border: #7ECF98;
-      --wip-bg:      #FFF8E6; --wip-text: #7A4A00; --wip-border: #F0C040;
-      --max-w:       720px;
-      --r-lg:        16px; --r-md: 10px; --r-sm: 6px;
-      --s-card:      0 2px 16px rgba(0,0,0,.07), 0 1px 4px rgba(0,0,0,.04);
-      --s-red:       0 6px 22px rgba(204,0,0,.28);
-    }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Noto Sans', sans-serif;
-      background: var(--off-white);
-      color: var(--ink);
-      min-height: 100vh;
-      padding-bottom: 64px;
-      -webkit-font-smoothing: antialiased;
-    }
+/* ═══════════════════════════════════════════════════════════
+   TOKENS
+═══════════════════════════════════════════════════════════ */
+:root{
+  --red:#CC0000; --red-d:#99000D; --red-l:#FF2020; --red-t:rgba(204,0,0,.1);
+  --ink:#0F0F0F; --ink-2:#2A2A2A; --ink-3:#555; --ink-4:#888; --ink-5:#BBB;
+  --white:#fff; --f0:#F7F7F7; --f1:#EFEFEF; --f2:#E5E5E5;
+  --ok:#16A34A; --ok-bg:#F0FDF4; --ok-bd:#86EFAC;
+  --wip:#B45309; --wip-bg:#FFFBEB; --wip-bd:#FCD34D;
+  --w:1100px; --r:14px; --r2:22px;
+  --sh:0 4px 24px rgba(0,0,0,.08); --sh2:0 12px 40px rgba(0,0,0,.12);
+  --shr:0 8px 28px rgba(204,0,0,.28);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--white);color:var(--ink);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{text-decoration:none;color:inherit}
 
-    /* ══ TOP UTILITY BAR ══ */
-    .util-bar {
-      background: #0A0A0A;
-      height: 34px;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      padding: 0 20px;
-      gap: 18px;
-    }
-    .util-link {
-      font-size: 11px; font-weight: 600;
-      color: rgba(255,255,255,.45);
-      text-decoration: none;
-      letter-spacing: .3px;
-      display: flex; align-items: center; gap: 5px;
-      transition: color .15s;
-    }
-    .util-link:hover { color: var(--white); }
+/* ═══ UTILITY BAR ═══ */
+.ubar{background:var(--ink);height:38px;display:flex;align-items:center;justify-content:flex-end;padding:0 32px;gap:24px}
+.ubar a{font-size:11px;font-weight:600;color:rgba(255,255,255,.45);letter-spacing:.4px;display:flex;align-items:center;gap:5px;transition:.15s}
+.ubar a:hover{color:#fff}
 
-    /* ══ MAIN NAVBAR ══ */
-    .main-nav {
-      background: var(--white);
-      border-bottom: 3px solid var(--h-red);
-      position: sticky; top: 0; z-index: 200;
-      box-shadow: 0 2px 14px rgba(0,0,0,.10);
-    }
-    .nav-inner {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding: 0 20px;
-      height: 68px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .logo-block {
-      display: flex; align-items: center; gap: 12px;
-    }
-    .logo-img {
-      height: 48px; width: auto; object-fit: contain; display: block;
-    }
-    .logo-sep { width: 1px; height: 32px; background: var(--silver); }
-    .logo-text { line-height: 1.2; }
-    .logo-name {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 19px; font-weight: 700; letter-spacing: .4px; color: var(--ink);
-    }
-    .logo-name span { color: var(--h-red); }
-    .logo-sub {
-      font-size: 10px; font-weight: 600;
-      letter-spacing: 1px; text-transform: uppercase; color: var(--ink-60);
-    }
-    /* Honda "H" badge */
-    .h-badge {
-      display: flex; align-items: center; gap: 7px;
-      background: var(--h-red);
-      color: var(--white);
-      border-radius: var(--r-sm);
-      padding: 6px 12px;
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
-    }
-    .h-badge-letter {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 26px; font-weight: 700;
-      line-height: 1; color: var(--white);
-      border: 2.5px solid rgba(255,255,255,.7);
-      border-radius: 4px;
-      width: 32px; height: 32px;
-      display: flex; align-items: center; justify-content: center;
-    }
+/* ═══ NAVBAR ═══ */
+.nav{background:var(--white);border-bottom:1px solid var(--f1);position:sticky;top:0;z-index:300;box-shadow:0 2px 16px rgba(0,0,0,.07)}
+.nav-in{max-width:var(--w);margin:0 auto;padding:0 24px;height:70px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.nav-logo{display:flex;align-items:center;gap:14px;flex-shrink:0}
+.nav-logo img{height:46px;object-fit:contain}
+.nav-sep{width:1px;height:32px;background:var(--f2)}
+.nav-brand{line-height:1.2}
+.nav-name{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--ink);letter-spacing:.2px}
+.nav-name span{color:var(--red)}
+.nav-sub{font-size:10px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:var(--ink-4)}
+.nav-menu{display:flex;align-items:center;gap:4px}
+.nav-link{padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;color:var(--ink-3);transition:.15s;cursor:pointer;border:none;background:none;font-family:inherit;white-space:nowrap}
+.nav-link:hover{background:var(--f0);color:var(--ink)}
+.nav-link.active{color:var(--red)}
+.nav-cta{display:flex;align-items:center;gap:8px;background:var(--red);color:#fff;border:none;border-radius:10px;padding:10px 18px;font-size:13px;font-weight:700;cursor:pointer;transition:.18s;font-family:inherit;white-space:nowrap;box-shadow:var(--shr)}
+.nav-cta:hover{background:var(--red-d);transform:translateY(-1px)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px;border:none;background:none}
+.hamburger span{display:block;width:22px;height:2px;background:var(--ink);border-radius:2px;transition:.3s}
 
-    /* ══ HERO ══ */
-    .hero {
-      background: var(--ink);
-      position: relative; overflow: hidden;
-    }
-    /* Red diagonal slice — AHM design language */
-    .hero-slash {
-      position: absolute; top: 0; right: 0;
-      width: 40%; height: 100%;
-      background: var(--h-red);
-      clip-path: polygon(20% 0, 100% 0, 100% 100%, 0% 100%);
-    }
-    /* Dot grid texture */
-    .hero-dots {
-      position: absolute; inset: 0;
-      background-image: radial-gradient(rgba(255,255,255,.05) 1px, transparent 1px);
-      background-size: 20px 20px;
-      pointer-events: none;
-    }
-    .hero-inner {
-      max-width: var(--max-w); margin: 0 auto;
-      padding: 42px 24px 38px;
-      position: relative; z-index: 2;
-      display: flex; align-items: center; justify-content: space-between; gap: 16px;
-    }
-    .hero-pill {
-      display: inline-flex; align-items: center; gap: 6px;
-      background: rgba(255,255,255,.12);
-      border: 1px solid rgba(255,255,255,.2);
-      color: rgba(255,255,255,.85);
-      font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
-      padding: 4px 12px; border-radius: 999px; margin-bottom: 14px;
-    }
-    .hero-pill-dot { width: 6px; height: 6px; border-radius: 50%; background: #7DFFB0; }
-    .hero-title {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 40px; font-weight: 700;
-      color: var(--white); line-height: 1.0; letter-spacing: .5px;
-    }
-    .hero-title em { font-style: normal; color: #FF8080; }
-    .hero-desc {
-      margin-top: 10px; font-size: 13px;
-      color: rgba(255,255,255,.50); line-height: 1.6; max-width: 300px;
-    }
-    .hero-deco {
-      flex-shrink: 0; position: relative; z-index: 3; text-align: right;
-    }
-    .hero-deco-main {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 72px; font-weight: 700;
-      color: rgba(255,255,255,.10); line-height: 1;
-      letter-spacing: -3px; user-select: none;
-    }
-    .hero-deco-sub {
-      font-size: 9px; font-weight: 700; letter-spacing: 2px;
-      text-transform: uppercase; color: rgba(255,255,255,.25);
-    }
+/* ═══ HERO ═══ */
+.hero{background:var(--ink);position:relative;overflow:hidden;min-height:86vh;display:flex;align-items:center}
+/* Diagonal red fill */
+.hero-bg{position:absolute;inset:0}
+.hero-bg::before{content:'';position:absolute;top:0;right:0;width:50%;height:100%;background:linear-gradient(160deg,var(--red-d) 0%,var(--red) 60%,var(--red-l) 100%);clip-path:polygon(15% 0,100% 0,100% 100%,0% 100%)}
+/* Dot grid */
+.hero-bg::after{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.04) 1px,transparent 1px);background-size:24px 24px;pointer-events:none}
+/* Red glow */
+.hero-glow{position:absolute;right:20%;top:-10%;width:500px;height:500px;background:radial-gradient(circle,rgba(204,0,0,.35) 0%,transparent 65%);pointer-events:none}
+.hero-in{max-width:var(--w);margin:0 auto;padding:80px 24px;position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:60px;width:100%}
+/* Left */
+.hero-left{animation:fadeInUp .7s ease both}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.85);font-size:11px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;padding:6px 14px;border-radius:999px;margin-bottom:22px}
+.hero-eyebrow-dot{width:7px;height:7px;border-radius:50%;background:#7DFFAA;box-shadow:0 0 8px #7DFFAA;animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+h1.hero-title{font-family:'Syne',sans-serif;font-size:clamp(36px,5vw,58px);font-weight:800;color:#fff;line-height:1.05;letter-spacing:-.5px;margin-bottom:18px}
+h1.hero-title em{font-style:normal;color:var(--red-l);-webkit-text-stroke:0}
+.hero-desc{font-size:16px;color:rgba(255,255,255,.55);line-height:1.7;max-width:380px;margin-bottom:36px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+.btn-hero-primary{display:inline-flex;align-items:center;gap:8px;background:var(--white);color:var(--red);border:none;border-radius:10px;padding:14px 26px;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:.18s;box-shadow:0 4px 16px rgba(0,0,0,.2)}
+.btn-hero-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.3)}
+.btn-hero-ghost{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);color:#fff;border:1.5px solid rgba(255,255,255,.25);border-radius:10px;padding:14px 26px;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:.18s;backdrop-filter:blur(8px)}
+.btn-hero-ghost:hover{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.4)}
+/* Stats row */
+.hero-stats{display:flex;gap:32px;margin-top:44px;padding-top:32px;border-top:1px solid rgba(255,255,255,.1)}
+.stat-val{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:#fff}
+.stat-lbl{font-size:12px;color:rgba(255,255,255,.45);font-weight:500;margin-top:2px;letter-spacing:.3px}
+/* Right — Mockup card */
+.hero-right{display:flex;justify-content:center;align-items:center;animation:fadeInUp .7s .2s ease both;opacity:0}
+.hero-card-mock{background:rgba(255,255,255,.06);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.12);border-radius:24px;padding:28px;width:100%;max-width:380px;box-shadow:0 24px 60px rgba(0,0,0,.4)}
+.mock-head{display:flex;align-items:center;gap:12px;margin-bottom:24px}
+.mock-logo{width:42px;height:42px;border-radius:10px;overflow:hidden;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center}
+.mock-logo img{width:32px;height:32px;object-fit:contain;filter:brightness(0) invert(1)}
+.mock-head-text .mock-title{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:#fff}
+.mock-head-text .mock-sub{font-size:11px;color:rgba(255,255,255,.45);margin-top:2px}
+.mock-badge{margin-left:auto;background:rgba(127,255,170,.15);border:1px solid rgba(127,255,170,.3);color:#7DFFAA;font-size:10px;font-weight:700;padding:4px 10px;border-radius:999px;letter-spacing:.5px;display:flex;align-items:center;gap:5px;white-space:nowrap}
+.mock-doc-row{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;background:rgba(255,255,255,.05);border-radius:10px;margin-bottom:8px;border:1px solid rgba(255,255,255,.07)}
+.mock-doc-label{font-size:13px;font-weight:600;color:rgba(255,255,255,.8);display:flex;align-items:center;gap:8px}
+.mock-doc-label span{font-size:15px}
+.mbadge-ok{background:rgba(22,163,74,.2);color:#4ADE80;font-size:10px;font-weight:700;padding:4px 10px;border-radius:999px;border:1px solid rgba(74,222,128,.3)}
+.mbadge-wip{background:rgba(245,158,11,.15);color:#FCD34D;font-size:10px;font-weight:700;padding:4px 10px;border-radius:999px;border:1px solid rgba(252,211,77,.3);display:flex;align-items:center;gap:5px}
+.mbadge-wip::before{content:'';width:5px;height:5px;border-radius:50%;background:#FCD34D;animation:blink 1.5s infinite}
+.mock-footer{margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.07);display:flex;align-items:center;gap:8px}
+.mock-avatar{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#CC0000,#FF4040)}
+.mock-footer-text{font-size:11px;color:rgba(255,255,255,.45)}
+.mock-footer-text strong{color:rgba(255,255,255,.8);font-size:12px}
 
-    /* ══ TAB BAR ══ */
-    .tab-bar {
-      background: var(--white);
-      border-bottom: 1px solid var(--silver);
-      position: sticky; top: 71px; z-index: 150;
-      box-shadow: 0 1px 0 var(--silver);
-    }
-    .tab-bar-inner {
-      max-width: var(--max-w); margin: 0 auto;
-      padding: 0 20px; display: flex;
-    }
-    .tab-btn {
-      display: flex; align-items: center; gap: 7px;
-      padding: 0 18px; height: 46px;
-      background: none; border: none;
-      border-bottom: 3px solid transparent;
-      font-family: 'Noto Sans', sans-serif;
-      font-size: 12.5px; font-weight: 600; color: var(--ink-60);
-      cursor: pointer; transition: all .18s;
-      white-space: nowrap; margin-bottom: -1px;
-      letter-spacing: .1px;
-    }
-    .tab-btn:hover { color: var(--ink); }
-    .tab-btn.active { color: var(--h-red); border-bottom-color: var(--h-red); }
-    .tab-btn.tab-cta {
-      margin-left: auto; color: var(--h-red); font-weight: 700;
-    }
-    .tab-btn.tab-cta:hover { background: var(--h-red-tint); }
+@keyframes fadeInUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
 
-    /* ══ PAGE WRAPPER ══ */
-    .page-wrap { max-width: var(--max-w); margin: 0 auto; padding: 24px 16px; }
+/* ═══ SECTION: SERVICE CARDS ═══ */
+.section-cards{background:var(--white);padding:80px 0}
+.container{max-width:var(--w);margin:0 auto;padding:0 24px}
+.section-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.eyebrow-line{width:32px;height:3px;background:var(--red);border-radius:2px}
+.eyebrow-text{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--red)}
+.section-title{font-family:'Syne',sans-serif;font-size:clamp(26px,4vw,36px);font-weight:800;color:var(--ink);line-height:1.1;letter-spacing:-.3px}
+.section-desc{font-size:15px;color:var(--ink-3);line-height:1.65;margin-top:10px;max-width:480px}
+.section-hd{margin-bottom:44px}
+.cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.scard{background:var(--white);border:1.5px solid var(--f2);border-radius:var(--r2);padding:32px;transition:.3s;cursor:pointer;position:relative;overflow:hidden}
+.scard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:.3s}
+.scard:hover{border-color:transparent;box-shadow:var(--sh2);transform:translateY(-6px)}
+.scard:hover::before{transform:scaleX(1)}
+.scard-icon{width:52px;height:52px;background:var(--red-t);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:20px;transition:.3s}
+.scard:hover .scard-icon{background:var(--red);transform:scale(1.05)}
+.scard-title{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--ink);margin-bottom:8px}
+.scard-desc{font-size:14px;color:var(--ink-3);line-height:1.6}
+.scard-arrow{display:flex;align-items:center;gap:6px;margin-top:22px;font-size:13px;font-weight:700;color:var(--red)}
+.scard-arrow svg{transition:.3s;flex-shrink:0}
+.scard:hover .scard-arrow svg{transform:translateX(4px)}
 
-    /* ══ SECTIONS ══ */
-    .section { display: none; }
-    .section.active { display: block; animation: fadeUp .25s ease; }
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(10px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
+/* ═══ SECTION: TRACKING ═══ */
+.section-tracking{background:var(--f0);padding:80px 0}
+.section-inner{display:grid;grid-template-columns:1fr 1.2fr;gap:60px;align-items:start}
+.sticky-form{position:sticky;top:96px}
+.form-card{background:var(--white);border:1.5px solid var(--f2);border-radius:var(--r2);box-shadow:var(--sh);overflow:hidden}
+.form-card-head{padding:24px 28px;border-bottom:1px solid var(--f2);background:linear-gradient(135deg,var(--ink) 0%,var(--ink-2) 100%);position:relative;overflow:hidden}
+.form-card-head::after{content:'BBN';position:absolute;right:20px;top:50%;transform:translateY(-50%);font-family:'Syne',sans-serif;font-size:64px;font-weight:800;color:rgba(255,255,255,.05);letter-spacing:-3px}
+.form-card-head::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--red-d),var(--red-l))}
+.form-card-htitle{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#fff}
+.form-card-hsub{font-size:12px;color:rgba(255,255,255,.5);margin-top:4px}
+.form-card-body{padding:24px 28px}
+.fg{margin-bottom:14px}
+.flabel{display:block;font-size:10.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink-4);margin-bottom:7px}
+.fw{display:flex;align-items:center;gap:10px;background:var(--f0);border:1.5px solid var(--f2);border-radius:var(--r);padding:0 14px;height:50px;transition:.15s}
+.fw:focus-within{border-color:var(--red);background:#fff;box-shadow:0 0 0 3px var(--red-t)}
+.fw.ok{border-color:var(--ok);box-shadow:0 0 0 3px rgba(22,163,74,.1)}
+.fw .fp{font-size:17px;color:var(--ink-5);flex-shrink:0}
+.fw input,.fw select{flex:1;border:none;background:transparent;outline:none;font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;font-weight:600;color:var(--ink)}
+.fw input::placeholder{color:var(--ink-5);font-weight:400}
+.fctr{font-size:11px;font-weight:700;color:var(--ink-5);font-variant-numeric:tabular-nums;flex-shrink:0;transition:.2s}
+.fctr.full{color:var(--ok)}
+.notice-strip{display:flex;align-items:flex-start;gap:10px;background:var(--wip-bg);border:1px solid var(--wip-bd);border-radius:10px;padding:12px 14px;font-size:12px;font-weight:600;color:var(--wip);margin-bottom:18px;line-height:1.5}
+.btn-full{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:52px;background:var(--red);color:#fff;border:none;border-radius:var(--r);font-family:'Syne',sans-serif;font-size:17px;font-weight:800;letter-spacing:.8px;cursor:pointer;transition:.18s;box-shadow:var(--shr);text-transform:uppercase}
+.btn-full:hover{background:var(--red-d);transform:translateY(-1px);box-shadow:0 12px 32px rgba(204,0,0,.38)}
+.btn-ghost-sm{height:52px;width:52px;background:#fff;border:1.5px solid var(--f2);border-radius:var(--r);display:flex;align-items:center;justify-content:center;font-size:19px;cursor:pointer;transition:.15s;flex-shrink:0;color:var(--ink-3)}
+.btn-ghost-sm:hover{border-color:var(--ink-4);color:var(--ink)}
+.btn-row{display:flex;gap:10px;margin-top:18px}
+.btn-row .btn-full{flex:1}
+.loading-bar{display:none;align-items:center;gap:12px;padding:14px 28px;font-size:13px;color:var(--ink-4);font-weight:500;border-top:1px solid var(--f2)}
+.spin{width:18px;height:18px;border-radius:50%;border:2px solid var(--f2);border-top-color:var(--red);animation:spin .7s linear infinite;flex-shrink:0}
+@keyframes spin{to{transform:rotate(360deg)}}
 
-    /* ══ SECTION HEADER ══ */
-    .sec-hd { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 18px; }
-    .sec-icon {
-      width: 44px; height: 44px;
-      background: var(--h-red); border-radius: var(--r-md);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 20px; flex-shrink: 0;
-    }
-    .sec-title {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 21px; font-weight: 700; letter-spacing: .3px; color: var(--ink); line-height: 1.15;
-    }
-    .sec-desc { font-size: 12.5px; color: var(--ink-60); margin-top: 3px; line-height: 1.5; }
+/* Right column info */
+.info-col{}
+.info-badge{display:inline-flex;align-items:center;gap:8px;background:var(--f1);border:1px solid var(--f2);border-radius:8px;padding:8px 14px;font-size:12px;font-weight:700;color:var(--ink-3);margin-bottom:22px}
+.info-heading{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:var(--ink);line-height:1.1;margin-bottom:12px}
+.info-heading span{color:var(--red)}
+.info-desc{font-size:15px;color:var(--ink-3);line-height:1.65;margin-bottom:28px}
+.step-list{display:flex;flex-direction:column;gap:16px;margin-bottom:32px}
+.step-item{display:flex;align-items:flex-start;gap:14px}
+.step-num{width:32px;height:32px;border-radius:50%;background:var(--red);color:#fff;font-family:'Syne',sans-serif;font-size:14px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.step-text strong{display:block;font-size:14px;font-weight:700;color:var(--ink);margin-bottom:2px}
+.step-text span{font-size:13px;color:var(--ink-4)}
 
-    /* ══ CARD ══ */
-    .card {
-      background: var(--white);
-      border: 1px solid var(--silver);
-      border-radius: var(--r-lg);
-      box-shadow: var(--s-card);
-      overflow: hidden; margin-bottom: 14px;
-    }
-    .card-body { padding: 20px 22px 24px; }
+/* Result cards */
+.results-wrap{margin-top:0}
+.rcard{background:var(--white);border:1.5px solid var(--f2);border-radius:var(--r2);box-shadow:var(--sh);overflow:hidden;margin-bottom:14px;animation:fadeInUp .3s ease}
+.rcard-head{background:linear-gradient(135deg,#111 0%,#1E1E1E 100%);padding:20px 24px;position:relative;overflow:hidden}
+.rcard-head::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--red-d),var(--red-l))}
+.rcard-name{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:#fff;letter-spacing:.2px}
+.rcard-nopol{display:inline-block;margin-top:8px;background:var(--red);color:#fff;font-family:'Syne',sans-serif;font-size:14px;font-weight:800;letter-spacing:3px;padding:5px 14px;border-radius:6px}
+.rcard-meta{display:flex;border-bottom:1px solid var(--f2)}
+.rcard-meta-cell{flex:1;padding:12px 24px;border-right:1px solid var(--f2)}
+.rcard-meta-cell:last-child{border-right:none}
+.rml{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink-5);margin-bottom:3px}
+.rmv{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--ink);letter-spacing:.3px}
+.doc-row{display:flex;align-items:center;padding:14px 24px;border-bottom:1px solid var(--f2);gap:12px}
+.doc-row:last-child{border-bottom:none}
+.doc-idx{width:24px;height:24px;border-radius:50%;background:var(--f1);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--ink-4);flex-shrink:0}
+.doc-info{flex:1}
+.doc-name{font-size:13px;font-weight:700;color:var(--ink)}
+.doc-sublbl{font-size:11px;color:var(--ink-5);margin-top:1px}
+.badge{display:inline-flex;align-items:center;gap:5px;padding:5px 11px;border-radius:6px;font-size:11px;font-weight:700;letter-spacing:.2px;flex-shrink:0}
+.badge::before{content:'';width:6px;height:6px;border-radius:50%}
+.badge-ok{background:var(--ok-bg);color:var(--ok);border:1px solid var(--ok-bd)}
+.badge-ok::before{background:var(--ok)}
+.badge-wip{background:var(--wip-bg);color:var(--wip);border:1px solid var(--wip-bd)}
+.badge-wip::before{background:var(--wip);animation:blink 1.5s infinite}
+.doc-date-sm{font-size:11px;color:var(--ink-5);margin-top:3px}
+.alert-box{background:#fff;border:1.5px solid var(--f2);border-left:4px solid var(--red);border-radius:var(--r2);padding:22px 24px;box-shadow:var(--sh)}
+.alert-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--ink);margin-bottom:5px}
+.alert-desc{font-size:13px;color:var(--ink-4);line-height:1.5}
 
-    /* ══ FORM FIELDS ══ */
-    .field-group { margin-bottom: 12px; }
-    .field-label {
-      display: block; font-size: 10px; font-weight: 700;
-      letter-spacing: 1.2px; text-transform: uppercase; color: var(--ink-60); margin-bottom: 6px;
-    }
-    .field-wrap {
-      display: flex; align-items: center; gap: 10px;
-      background: var(--off-white);
-      border: 1.5px solid var(--silver);
-      border-radius: var(--r-md);
-      padding: 0 14px; height: 50px;
-      transition: all .15s;
-    }
-    .field-wrap:focus-within {
-      border-color: var(--h-red); background: var(--white);
-      box-shadow: 0 0 0 3px rgba(204,0,0,.10);
-    }
-    .field-wrap.valid {
-      border-color: #3CB96B; background: var(--white);
-      box-shadow: 0 0 0 3px rgba(60,185,107,.10);
-    }
-    .f-prefix { font-size: 18px; color: var(--ink-30); flex-shrink: 0; }
-    .field-wrap input, .field-wrap select {
-      flex: 1; border: none; background: transparent; outline: none;
-      font-family: 'Noto Sans', sans-serif;
-      font-size: 15px; font-weight: 600; color: var(--ink);
-    }
-    .field-wrap input::placeholder { color: var(--ink-30); font-weight: 400; }
-    .field-ctr {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 12px; font-weight: 700; color: var(--ink-30); flex-shrink: 0;
-    }
-    .field-ctr.ok { color: #3CB96B; }
+/* ═══ SECTION: KPB ═══ */
+.section-kpb{background:var(--white);padding:80px 0}
+.kpb-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:60px;align-items:start}
+.kpb-form-card{background:var(--white);border:1.5px solid var(--f2);border-radius:var(--r2);box-shadow:var(--sh);overflow:hidden}
+.kpb-form-head{padding:22px 26px;background:var(--f0);border-bottom:1px solid var(--f2)}
+.kpb-form-htitle{font-family:'Syne',sans-serif;font-size:17px;font-weight:800;color:var(--ink)}
+.kpb-form-body{padding:22px 26px}
+.kpb-info{padding-top:8px}
+.kpb-info-icon{font-size:48px;margin-bottom:16px}
+.kpb-info-title{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;color:var(--ink);line-height:1.1;margin-bottom:10px}
+.kpb-info-desc{font-size:14px;color:var(--ink-3);line-height:1.65;margin-bottom:24px}
+.kpb-badge-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.kpb-badge{background:var(--f0);border:1px solid var(--f2);border-radius:var(--r);padding:14px 16px}
+.kpb-badge-val{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--red)}
+.kpb-badge-lbl{font-size:12px;color:var(--ink-4);margin-top:2px}
+.timeline{padding-left:22px;border-left:2px solid var(--f2);margin-top:22px}
+.t-item{position:relative;padding-left:18px;padding-bottom:22px}
+.t-item:last-child{padding-bottom:0}
+.t-dot{position:absolute;left:-27px;top:3px;width:12px;height:12px;border-radius:50%;background:var(--red);border:2.5px solid #fff;box-shadow:0 0 0 2px var(--red)}
+.t-tag{display:inline-flex;align-items:center;background:var(--red);color:#fff;font-size:11px;font-weight:800;letter-spacing:.5px;padding:3px 10px;border-radius:4px;margin-bottom:6px}
+.t-name{font-size:14px;font-weight:700;color:var(--ink)}
+.t-date{font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:var(--red);letter-spacing:.2px;margin-top:4px}
+.t-sub{font-size:12px;color:var(--ink-4);margin-top:3px}
 
-    .notice {
-      display: flex; align-items: flex-start; gap: 10px;
-      background: #FFFBEB; border: 1px solid #FDE68A;
-      border-radius: var(--r-md); padding: 11px 14px;
-      font-size: 12px; font-weight: 500; color: #92400E; line-height: 1.5;
-    }
+/* ═══ TRUST SECTION ═══ */
+.section-trust{background:var(--ink);padding:72px 0}
+.trust-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:48px;align-items:center}
+.trust-left .eyebrow-line{background:var(--red)}
+.trust-left .eyebrow-text{color:var(--red)}
+.trust-title{font-family:'Syne',sans-serif;font-size:clamp(24px,3vw,32px);font-weight:800;color:#fff;line-height:1.1;margin-top:10px}
+.trust-desc{font-size:14px;color:rgba(255,255,255,.5);line-height:1.65;margin-top:12px;margin-bottom:28px}
+.trust-wa-btn{display:inline-flex;align-items:center;gap:10px;background:#25D366;color:#fff;border:none;border-radius:10px;padding:13px 22px;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:.18s;box-shadow:0 6px 20px rgba(37,211,102,.35)}
+.trust-wa-btn:hover{background:#1ead55;transform:translateY(-1px)}
+.trust-stat{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:var(--r2);padding:28px}
+.trust-stat-val{font-family:'Syne',sans-serif;font-size:40px;font-weight:800;color:#fff;line-height:1}
+.trust-stat-label{font-size:13px;color:rgba(255,255,255,.45);margin-top:8px;line-height:1.4}
+.trust-stat-accent{display:inline-block;width:28px;height:3px;background:var(--red);border-radius:2px;margin-bottom:12px}
 
-    /* ══ BUTTONS ══ */
-    .btn-primary {
-      display: flex; align-items: center; justify-content: center; gap: 8px;
-      width: 100%; height: 50px;
-      background: var(--h-red); color: var(--white);
-      border: none; border-radius: var(--r-md);
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 17px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
-      cursor: pointer; transition: all .18s;
-      box-shadow: var(--s-red);
-    }
-    .btn-primary:hover { background: var(--h-red-dark); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(204,0,0,.35); }
-    .btn-primary:active { transform: translateY(0); }
-    .btn-ghost {
-      display: flex; align-items: center; justify-content: center;
-      width: 50px; height: 50px;
-      background: var(--white); border: 1.5px solid var(--silver);
-      border-radius: var(--r-md); font-size: 18px; color: var(--ink-60);
-      cursor: pointer; transition: all .15s; flex-shrink: 0;
-    }
-    .btn-ghost:hover { border-color: var(--ink-30); color: var(--ink); }
-    .btn-row { display: flex; gap: 10px; margin-top: 18px; }
-    .btn-row .btn-primary { flex: 1; }
+/* ═══ BRANCH SECTION ═══ */
+.section-branch{background:var(--f0);padding:72px 0}
+.branches-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:40px}
+.branch-card{background:var(--white);border:1.5px solid var(--f2);border-radius:var(--r);padding:18px 20px;transition:.2s}
+.branch-card:hover{border-color:var(--red);box-shadow:0 4px 16px rgba(204,0,0,.1)}
+.bc-region{font-size:9px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--red);margin-bottom:5px}
+.bc-name{font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:var(--ink);margin-bottom:6px}
+.bc-info{font-size:12px;color:var(--ink-4);line-height:1.5}
+.bc-map{display:inline-flex;align-items:center;gap:5px;margin-top:10px;font-size:11.5px;font-weight:700;color:#1558CC;transition:.15s}
+.bc-map:hover{text-decoration:underline}
 
-    /* ══ LOADING ══ */
-    .loading-strip {
-      display: none; align-items: center; gap: 12px;
-      padding: 14px 22px; font-size: 13px; font-weight: 500; color: var(--ink-60);
-      border-top: 1px solid var(--silver);
-    }
-    .spinner {
-      width: 18px; height: 18px; border-radius: 50%;
-      border: 2px solid var(--silver); border-top-color: var(--h-red);
-      animation: spin .7s linear infinite; flex-shrink: 0;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
+/* ═══ FOOTER ═══ */
+.footer{background:var(--ink-2);padding:48px 0 24px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;margin-bottom:40px}
+.footer-brand img{height:36px;filter:brightness(0) invert(1);opacity:.7;margin-bottom:14px}
+.footer-brand p{font-size:13px;color:rgba(255,255,255,.4);line-height:1.6;max-width:280px}
+.footer-col h4{font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:rgba(255,255,255,.7);letter-spacing:.5px;text-transform:uppercase;margin-bottom:14px}
+.footer-col a{display:block;font-size:13px;color:rgba(255,255,255,.4);margin-bottom:8px;transition:.15s;cursor:pointer}
+.footer-col a:hover{color:rgba(255,255,255,.8)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.08);padding-top:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.footer-copy{font-size:11px;color:rgba(255,255,255,.25);letter-spacing:.3px}
+.footer-honda{display:flex;align-items:center;gap:7px;font-size:11px;font-weight:700;color:rgba(255,255,255,.3);letter-spacing:.5px}
+.honda-h{width:24px;height:24px;background:var(--red);border-radius:4px;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:#fff}
 
-    /* ══ RESULT CARD ══ */
-    .result-card {
-      background: var(--white); border: 1px solid var(--silver);
-      border-radius: var(--r-lg); box-shadow: var(--s-card);
-      overflow: hidden; margin-bottom: 14px;
-      animation: fadeUp .3s ease;
-    }
-    .r-head {
-      background: linear-gradient(135deg, #111 0%, #222 100%);
-      padding: 18px 22px; position: relative; overflow: hidden;
-    }
-    .r-head::after {
-      content: 'BBN';
-      position: absolute; right: 16px; top: 50%; transform: translateY(-50%);
-      font-family: 'Rajdhani', sans-serif; font-size: 56px; font-weight: 700;
-      color: rgba(255,255,255,.06); letter-spacing: -2px; pointer-events: none;
-    }
-    /* Red top edge */
-    .r-head::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-      background: linear-gradient(90deg, var(--h-red), var(--h-red-light));
-    }
-    .r-name {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 24px; font-weight: 700; color: var(--white); letter-spacing: .3px;
-    }
-    .r-nopol {
-      display: inline-block; margin-top: 8px;
-      background: var(--h-red); color: var(--white);
-      font-family: 'Rajdhani', sans-serif; font-size: 14px; font-weight: 700;
-      letter-spacing: 3.5px; padding: 4px 14px; border-radius: 4px;
-    }
-    .r-meta { display: flex; border-bottom: 1px solid var(--silver); }
-    .r-meta-cell {
-      flex: 1; padding: 11px 22px; border-right: 1px solid var(--silver);
-    }
-    .r-meta-cell:last-child { border-right: none; }
-    .r-meta-lbl {
-      font-size: 9px; font-weight: 700; letter-spacing: 1px;
-      text-transform: uppercase; color: var(--ink-30); margin-bottom: 2px;
-    }
-    .r-meta-val {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 16px; font-weight: 700; color: var(--ink); letter-spacing: .5px;
-    }
-    .doc-row {
-      display: flex; align-items: center; padding: 13px 22px;
-      border-bottom: 1px solid var(--silver); gap: 12px;
-    }
-    .doc-row:last-child { border-bottom: none; }
-    .doc-idx {
-      width: 22px; height: 22px; border-radius: 50%;
-      background: var(--ink-10);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 10px; font-weight: 700; color: var(--ink-60); flex-shrink: 0;
-    }
-    .doc-info { flex: 1; }
-    .doc-name { font-size: 13px; font-weight: 600; color: var(--ink); }
-    .doc-sublabel { font-size: 11px; color: var(--ink-30); margin-top: 1px; }
-    .badge {
-      display: inline-flex; align-items: center; gap: 5px;
-      padding: 5px 10px; border-radius: 4px;
-      font-size: 11px; font-weight: 700; letter-spacing: .3px;
-      flex-shrink: 0; white-space: nowrap;
-    }
-    .badge::before {
-      content: ''; width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
-    }
-    .badge-ok  { background: var(--ok-bg);  color: var(--ok-text);  border: 1px solid var(--ok-border); }
-    .badge-ok::before { background: var(--ok-text); }
-    .badge-wip { background: var(--wip-bg); color: var(--wip-text); border: 1px solid var(--wip-border); }
-    .badge-wip::before { background: var(--wip-text); animation: pulse 1.5s infinite; }
-    @keyframes pulse { 0%,100%{opacity:1}50%{opacity:.3} }
-    .doc-date { font-size: 11px; color: var(--ink-30); margin-top: 3px; }
+/* ═══ FLOATING WA ═══ */
+.wa-float{position:fixed;bottom:24px;right:20px;z-index:999;display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+.wa-float-label{background:rgba(0,0,0,.75);color:#fff;font-size:11.5px;font-weight:600;padding:7px 12px;border-radius:8px;backdrop-filter:blur(10px);white-space:nowrap;opacity:0;transform:translateX(10px);transition:.3s;pointer-events:none}
+.wa-float:hover .wa-float-label{opacity:1;transform:translateX(0)}
+.wa-btn-float{width:56px;height:56px;border-radius:50%;background:#25D366;color:#fff;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 6px 20px rgba(37,211,102,.5);transition:.2s;animation:wapulse 3s infinite 2s}
+.wa-btn-float:hover{transform:scale(1.1);box-shadow:0 10px 28px rgba(37,211,102,.6);animation:none}
+@keyframes wapulse{0%,100%{box-shadow:0 6px 20px rgba(37,211,102,.5)}50%{box-shadow:0 6px 20px rgba(37,211,102,.5),0 0 0 8px rgba(37,211,102,.15)}}
 
-    /* ══ ALERT ══ */
-    .alert-card {
-      background: var(--white); border: 1px solid var(--silver);
-      border-left: 4px solid var(--h-red); border-radius: var(--r-lg);
-      padding: 20px 22px; box-shadow: var(--s-card);
-    }
-    .alert-title { font-family:'Rajdhani',sans-serif; font-size:17px; font-weight:700; color:var(--ink); letter-spacing:.3px; margin-bottom:4px; }
-    .alert-desc { font-size:13px; color:var(--ink-60); line-height:1.5; }
+/* ═══ BOOKING MODAL ═══ */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(6px);z-index:9999;display:none;align-items:flex-end;justify-content:center;padding:0}
+@media(min-width:640px){.modal-bg{align-items:center;padding:20px}}
+.modal-bg.open{display:flex}
+.modal{background:#fff;width:100%;max-width:600px;border-radius:22px 22px 0 0;max-height:95vh;overflow-y:auto;animation:slideUp .25s ease}
+@media(min-width:640px){.modal{border-radius:22px}}
+@keyframes slideUp{from{transform:translateY(30px);opacity:0}to{transform:translateY(0);opacity:1}}
+.modal-hd{position:sticky;top:0;z-index:10;background:#fff;border-bottom:1px solid var(--f2)}
+.modal-hd-bar{height:4px;background:linear-gradient(90deg,var(--red-d),var(--red-l));border-radius:22px 22px 0 0}
+.modal-hd-in{padding:16px 24px;display:flex;align-items:center;justify-content:space-between}
+.modal-title{font-family:'Syne',sans-serif;font-size:19px;font-weight:800;color:var(--ink)}
+.modal-title em{font-style:normal;color:var(--red)}
+.modal-x{width:32px;height:32px;border-radius:50%;background:var(--f1);border:1px solid var(--f2);display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--ink-4);cursor:pointer;transition:.15s;line-height:1}
+.modal-x:hover{background:var(--red);color:#fff;border-color:var(--red)}
+.modal-body{padding:22px 24px 32px}
+.fsec{display:flex;align-items:center;gap:10px;margin:22px 0 14px}
+.fsec:first-child{margin-top:0}
+.fsec-n{width:26px;height:26px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff;flex-shrink:0}
+.fsec-l{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;color:var(--ink)}
+.fsec-line{flex:1;height:1px;background:var(--f2)}
+.mfg{margin-bottom:12px}
+.mfg label{display:block;font-size:10.5px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--ink-4);margin-bottom:6px}
+.mctrl{width:100%;height:46px;padding:0 14px;background:var(--f0);border:1.5px solid var(--f2);border-radius:var(--r);font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:500;color:var(--ink);transition:.15s}
+.mctrl:focus{border-color:var(--red);background:#fff;box-shadow:0 0 0 3px var(--red-t);outline:none}
+.two-col{display:grid;grid-template-columns:3fr 2fr;gap:10px}
+.binfo-card{display:none;background:var(--f0);border:1px solid var(--f2);border-left:4px solid var(--red);border-radius:var(--r);padding:14px 16px;margin-top:8px;font-size:12.5px;color:var(--ink-4);line-height:1.7}
+.binfo-name{font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:var(--ink);display:block;margin-bottom:4px}
+.btn-maps{display:inline-flex;align-items:center;gap:5px;margin-top:8px;padding:6px 12px;background:#fff;border:1px solid var(--f2);border-radius:6px;font-size:11.5px;font-weight:700;color:#1558CC;text-decoration:none;transition:.15s}
+.btn-maps:hover{background:#1558CC;color:#fff}
+.btn-wa-submit{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;height:52px;background:#25D366;color:#fff;border:none;border-radius:var(--r);font-family:'Syne',sans-serif;font-size:18px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;cursor:pointer;transition:.18s;box-shadow:0 6px 20px rgba(37,211,102,.35);margin-top:20px}
+.btn-wa-submit:hover{background:#1ead55;transform:translateY(-1px)}
 
-    /* ══ KPB TIMELINE ══ */
-    .timeline { padding-left: 22px; border-left: 2px solid var(--silver); margin-top: 20px; }
-    .t-item { position: relative; padding-left: 18px; padding-bottom: 22px; }
-    .t-item:last-child { padding-bottom: 0; }
-    .t-dot {
-      position: absolute; left: -27px; top: 3px;
-      width: 12px; height: 12px; border-radius: 50%;
-      background: var(--h-red); border: 2px solid var(--white);
-      box-shadow: 0 0 0 2px var(--h-red);
-    }
-    .t-kpb {
-      display: inline-flex; align-items: center;
-      background: var(--h-red); color: var(--white);
-      font-family: 'Rajdhani', sans-serif; font-size: 12px; font-weight: 700;
-      letter-spacing: .5px; padding: 2px 9px; border-radius: 3px; margin-bottom: 5px;
-    }
-    .t-title { font-size: 14px; font-weight: 600; color: var(--ink); }
-    .t-date { font-family:'Rajdhani',sans-serif; font-size:15px; font-weight:700; color:var(--h-red); letter-spacing:.3px; margin-top:4px; }
-    .t-desc { font-size:12px; color:var(--ink-60); margin-top:3px; }
+/* ═══ MOBILE NAV DRAWER ═══ */
+.mobile-nav{position:fixed;inset:0;z-index:400;pointer-events:none}
+.mobile-nav-overlay{position:absolute;inset:0;background:rgba(0,0,0,.5);opacity:0;transition:.3s;pointer-events:none}
+.mobile-nav-drawer{position:absolute;top:0;right:-280px;width:280px;height:100%;background:#fff;transition:.3s;pointer-events:auto;box-shadow:none;display:flex;flex-direction:column;padding:24px}
+.mobile-nav.open .mobile-nav-overlay{opacity:1;pointer-events:auto}
+.mobile-nav.open .mobile-nav-drawer{right:0;box-shadow:-8px 0 40px rgba(0,0,0,.15)}
+.mobile-nav-close{align-self:flex-end;background:var(--f1);border:none;border-radius:8px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer;margin-bottom:24px;color:var(--ink-3)}
+.mobile-nav-links{display:flex;flex-direction:column;gap:2px}
+.mobile-nav-link{padding:12px 14px;border-radius:10px;font-size:15px;font-weight:600;color:var(--ink-3);cursor:pointer;transition:.15s;border:none;background:none;text-align:left;font-family:inherit}
+.mobile-nav-link:hover{background:var(--f0);color:var(--ink)}
+.mobile-nav-cta{margin-top:16px;display:flex;align-items:center;justify-content:center;gap:8px;background:var(--red);color:#fff;border:none;border-radius:10px;padding:13px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;transition:.18s}
+.mobile-nav-cta:hover{background:var(--red-d)}
 
-    /* ══ BOOKING MODAL ══ */
-    .modal-bg {
-      position: fixed; inset: 0; background: rgba(0,0,0,.75);
-      backdrop-filter: blur(6px); z-index: 9999;
-      display: none; align-items: flex-end; justify-content: center; padding: 0;
-    }
-    @media(min-width:600px){ .modal-bg { align-items: center; padding: 20px; } }
-    .modal-bg.open { display: flex; }
-    .modal {
-      background: var(--white); width: 100%; max-width: 580px;
-      border-radius: 20px 20px 0 0; max-height: 94vh; overflow-y: auto;
-      animation: slideUp .25s ease;
-    }
-    @media(min-width:600px){ .modal { border-radius: 20px; } }
-    @keyframes slideUp {
-      from { transform: translateY(40px); opacity: 0; }
-      to   { transform: translateY(0); opacity: 1; }
-    }
-    .modal-hd {
-      position: sticky; top: 0; z-index: 10;
-      background: var(--white); border-bottom: 1px solid var(--silver);
-    }
-    .modal-hd-bar {
-      height: 4px;
-      background: linear-gradient(90deg, var(--h-red-dark), var(--h-red-light));
-      border-radius: 20px 20px 0 0;
-    }
-    .modal-hd-inner {
-      padding: 14px 22px;
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .modal-title {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 20px; font-weight: 700; letter-spacing: .5px; color: var(--ink);
-    }
-    .modal-title em { font-style: normal; color: var(--h-red); }
-    .modal-close {
-      width: 32px; height: 32px; border-radius: 50%;
-      background: var(--off-white); border: 1px solid var(--silver);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 18px; color: var(--ink-60);
-      cursor: pointer; transition: all .15s; line-height: 1;
-    }
-    .modal-close:hover { background: var(--h-red); color: var(--white); border-color: var(--h-red); }
-    .modal-body { padding: 20px 22px 28px; }
-    .form-sec {
-      display: flex; align-items: center; gap: 10px;
-      margin: 22px 0 14px;
-    }
-    .form-sec:first-child { margin-top: 0; }
-    .fs-num {
-      width: 24px; height: 24px; border-radius: 50%;
-      background: var(--h-red);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 11px; font-weight: 700; color: var(--white); flex-shrink: 0;
-    }
-    .fs-lbl {
-      font-family: 'Rajdhani', sans-serif; font-size: 14px; font-weight: 700;
-      letter-spacing: .5px; text-transform: uppercase; color: var(--ink);
-    }
-    .fs-line { flex: 1; height: 1px; background: var(--silver); }
-    .fg { margin-bottom: 12px; }
-    .fg label {
-      display: block; font-size: 10.5px; font-weight: 700;
-      letter-spacing: .8px; text-transform: uppercase; color: var(--ink-60); margin-bottom: 6px;
-    }
-    .fctrl {
-      width: 100%; height: 46px; padding: 0 14px;
-      background: var(--off-white); border: 1.5px solid var(--silver);
-      border-radius: var(--r-md);
-      font-family: 'Noto Sans', sans-serif; font-size: 14px; font-weight: 500; color: var(--ink);
-      transition: all .15s;
-    }
-    .fctrl:focus { border-color: var(--h-red); background: var(--white); box-shadow: 0 0 0 3px rgba(204,0,0,.10); outline: none; }
-    .two-col { display: grid; grid-template-columns: 3fr 2fr; gap: 10px; }
-    .branch-card {
-      display: none;
-      background: var(--off-white); border: 1px solid var(--silver);
-      border-left: 4px solid var(--h-red); border-radius: var(--r-md);
-      padding: 12px 14px; margin-top: 8px;
-      font-size: 12.5px; color: var(--ink-60); line-height: 1.7;
-    }
-    .bc-name {
-      font-family: 'Rajdhani', sans-serif; font-size: 15px; font-weight: 700;
-      color: var(--ink); letter-spacing: .3px; display: block; margin-bottom: 2px;
-    }
-    .btn-map {
-      display: inline-flex; align-items: center; gap: 5px;
-      margin-top: 8px; padding: 6px 12px;
-      background: var(--white); border: 1px solid var(--silver);
-      border-radius: var(--r-sm);
-      font-size: 11.5px; font-weight: 600; color: #1558CC;
-      text-decoration: none; transition: .15s;
-    }
-    .btn-map:hover { background: #1558CC; color: var(--white); border-color: #1558CC; }
-    .btn-wa {
-      display: flex; align-items: center; justify-content: center; gap: 10px;
-      width: 100%; height: 52px;
-      background: #25D366; color: var(--white);
-      border: none; border-radius: var(--r-md);
-      font-family: 'Rajdhani', sans-serif; font-size: 18px; font-weight: 700;
-      letter-spacing: .8px; text-transform: uppercase;
-      cursor: pointer; transition: all .18s;
-      box-shadow: 0 6px 20px rgba(37,211,102,.30); margin-top: 20px;
-    }
-    .btn-wa:hover { background: #1ead55; transform: translateY(-1px); }
+/* ═══ SCROLL REVEAL ═══ */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
 
-    /* ══ FOOTER ══ */
-    .footer { margin-top: 44px; }
-    .footer-inner {
-      max-width: var(--max-w); margin: 0 auto; padding: 20px 20px 24px;
-      border-top: 1px solid var(--silver);
-      display: flex; align-items: center; justify-content: space-between; gap: 12px;
-      flex-wrap: wrap;
-    }
-    .footer-logo { display: flex; align-items: center; gap: 8px; }
-    .footer-logo img { height: 22px; opacity: .3; filter: grayscale(1); }
-    .footer-copy { font-size: 11px; color: var(--ink-30); letter-spacing: .2px; }
-
-    @media(max-width:480px){
-      .util-bar { display: none; }
-      .hero-deco { display: none; }
-      .hero-title { font-size: 32px; }
-      .tab-btn { padding: 0 10px; font-size: 11.5px; }
-    }
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:900px){
+  .cards-grid{grid-template-columns:1fr 1fr}
+  .section-inner{grid-template-columns:1fr}
+  .kpb-grid{grid-template-columns:1fr}
+  .trust-grid{grid-template-columns:1fr 1fr}
+  .trust-left{grid-column:1/-1}
+  .branches-grid{grid-template-columns:repeat(2,1fr)}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .hero-in{grid-template-columns:1fr}
+  .hero-right{display:none}
+  .nav-menu{display:none}
+  .hamburger{display:flex}
+}
+@media(max-width:580px){
+  .cards-grid{grid-template-columns:1fr}
+  .branches-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+  .trust-grid{grid-template-columns:1fr}
+  .hero-stats{gap:20px}
+  .ubar{display:none}
+  .kpb-badge-grid{grid-template-columns:1fr 1fr}
+}
   </style>
 </head>
 <body>
 
-  <!-- TOP UTILITY BAR -->
-  <div class="util-bar">
-    <a href="https://wa.me/6287711428916" target="_blank" class="util-link">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      WhatsApp CS
-    </a>
-    <span class="util-link">Dealer Resmi Honda · Tegal &amp; Brebes</span>
-  </div>
+<!-- ═══ UTILITY BAR ═══ -->
+<div class="ubar">
+  <a href="https://wa.me/6287711428916" target="_blank">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    WhatsApp CS
+  </a>
+  <a href="#cabang">12 Cabang Tegal &amp; Brebes</a>
+</div>
 
-  <!-- NAVBAR -->
-  <nav class="main-nav">
-    <div class="nav-inner">
-      <div class="logo-block">
-        <img src="https://i.imgur.com/8fSvYUp.png" alt="Naga Mas Motor" class="logo-img">
-        <div class="logo-sep"></div>
-        <div class="logo-text">
-          <div class="logo-name">NAGA <span>MAS</span> MOTOR</div>
-          <div class="logo-sub">Dealer Resmi Honda</div>
-        </div>
-      </div>
-      <div class="h-badge">
-        <div class="h-badge-letter">H</div>
-        HONDA
+<!-- ═══ NAVBAR ═══ -->
+<nav class="nav" id="mainNav">
+  <div class="nav-in">
+    <div class="nav-logo">
+      <img src="https://i.imgur.com/8fSvYUp.png" alt="Naga Mas Motor">
+      <div class="nav-sep"></div>
+      <div class="nav-brand">
+        <div class="nav-name">NAGA <span>MAS</span></div>
+        <div class="nav-sub">Dealer Resmi Honda</div>
       </div>
     </div>
-  </nav>
-
-  <!-- HERO -->
-  <div class="hero">
-    <div class="hero-slash"></div>
-    <div class="hero-dots"></div>
-    <div class="hero-inner">
-      <div>
-        <div class="hero-pill"><span class="hero-pill-dot"></span>Customer Service Portal</div>
-        <h1 class="hero-title">PORTAL<br>LAYANAN<br><em>PELANGGAN</em></h1>
-        <p class="hero-desc">Lacak status BBN, cek jadwal servis gratis, dan booking bengkel AHASS secara online.</p>
-      </div>
-      <div class="hero-deco">
-        <div class="hero-deco-main">NMM</div>
-        <div class="hero-deco-sub">Salam Satu Hati</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- TAB BAR -->
-  <div class="tab-bar">
-    <div class="tab-bar-inner">
-      <button id="tab-tracking" class="tab-btn active" onclick="gantiTab('tracking', this)">
-        🔍 Lacak Dokumen BBN
-      </button>
-      <button id="tab-kpb" class="tab-btn" onclick="gantiTab('kpb', this)">
-        📅 Jadwal KPB
-      </button>
-      <button class="tab-btn tab-cta" onclick="bukaBooking()">
-        🛠️ Booking Service →
+    <div class="nav-menu">
+      <button class="nav-link active" onclick="scrollTo('#hero')">Home</button>
+      <button class="nav-link" onclick="scrollTo('#tracking')">Cek BBN</button>
+      <button class="nav-link" onclick="scrollTo('#kpb')">Jadwal KPB</button>
+      <button class="nav-link" onclick="scrollTo('#cabang')">Cabang</button>
+      <button class="nav-cta" onclick="bukaBooking()">
+        🛠️ Booking Service
       </button>
     </div>
+    <button class="hamburger" onclick="toggleMobileNav()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
+</nav>
 
-  <!-- PAGE CONTENT -->
-  <div class="page-wrap">
-
-    <!-- SECTION: TRACKING -->
-    <div id="sec-tracking" class="section active">
-      <div class="sec-hd">
-        <div class="sec-icon">🔍</div>
-        <div>
-          <div class="sec-title">CEK STATUS DOKUMEN BBN</div>
-          <div class="sec-desc">Masukkan 5 digit angka terakhir No. Mesin &amp; No. Rangka sesuai STNK atau faktur pembelian.</div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-body">
-          <div class="field-group">
-            <label class="field-label">Nomor Mesin — 5 Digit Terakhir</label>
-            <div class="field-wrap" id="wrapMesin">
-              <span class="f-prefix">⚙️</span>
-              <input id="inputMesin" type="tel" maxlength="5" placeholder="Contoh: 12345" autocomplete="off">
-              <span class="field-ctr" id="ctrMesin">0/5</span>
-            </div>
-          </div>
-          <div class="field-group">
-            <label class="field-label">Nomor Rangka — 5 Digit Terakhir</label>
-            <div class="field-wrap" id="wrapRangka">
-              <span class="f-prefix">🔑</span>
-              <input id="inputRangka" type="tel" maxlength="5" placeholder="Contoh: 67890" autocomplete="off">
-              <span class="field-ctr" id="ctrRangka">0/5</span>
-            </div>
-          </div>
-          <div class="notice">
-            ⚠️&nbsp; Gunakan 5 angka terakhir dari No. Mesin &amp; Rangka yang tertera di STNK atau faktur pembelian.
-          </div>
-          <div class="btn-row">
-            <button class="btn-primary" onclick="lakukanPencarian()">🔍 CEK STATUS DOKUMEN</button>
-            <button class="btn-ghost" onclick="resetForm()" title="Reset">↺</button>
-          </div>
-        </div>
-        <div class="loading-strip" id="loadingBox">
-          <div class="spinner"></div> Mengambil data dari sistem…
-        </div>
-      </div>
-
-      <div id="hasilPencarian"></div>
+<!-- ═══ MOBILE NAV ═══ -->
+<div class="mobile-nav" id="mobileNav">
+  <div class="mobile-nav-overlay" onclick="toggleMobileNav()"></div>
+  <div class="mobile-nav-drawer">
+    <button class="mobile-nav-close" onclick="toggleMobileNav()">×</button>
+    <div class="mobile-nav-links">
+      <button class="mobile-nav-link" onclick="scrollTo('#hero');toggleMobileNav()">🏠 Home</button>
+      <button class="mobile-nav-link" onclick="scrollTo('#tracking');toggleMobileNav()">🔍 Cek Dokumen BBN</button>
+      <button class="mobile-nav-link" onclick="scrollTo('#kpb');toggleMobileNav()">📅 Jadwal KPB</button>
+      <button class="mobile-nav-link" onclick="scrollTo('#cabang');toggleMobileNav()">📍 Cabang Kami</button>
     </div>
+    <button class="mobile-nav-cta" onclick="bukaBooking();toggleMobileNav()">🛠️ Booking Service</button>
+  </div>
+</div>
 
-    <!-- SECTION: KPB -->
-    <div id="sec-kpb" class="section">
-      <div class="sec-hd">
-        <div class="sec-icon">📅</div>
-        <div>
-          <div class="sec-title">JADWAL SERVIS GRATIS (KPB)</div>
-          <div class="sec-desc">Hitung batas waktu Kunjungan Pertama Berkala berdasarkan tanggal pembelian.</div>
-        </div>
+<!-- ═══ HERO ═══ -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-in">
+    <div class="hero-left">
+      <div class="hero-eyebrow">
+        <span class="hero-eyebrow-dot"></span>
+        Dealer Resmi Honda
       </div>
-      <div class="card">
-        <div class="card-body">
-          <div class="field-group">
-            <label class="field-label">Tipe Motor</label>
-            <div class="field-wrap">
-              <span class="f-prefix">🏍️</span>
-              <select id="kpbMotor">
-                <optgroup label="─ Matic 110cc / 4 KPB ─">
-                  <option value="BEAT">Honda BEAT</option>
-                  <option value="GENIO">Honda GENIO</option>
-                  <option value="SCOOPY">Honda SCOOPY</option>
-                  <option value="VARIO 125">Honda VARIO 125</option>
-                </optgroup>
-                <optgroup label="─ Bebek / 4 KPB ─">
-                  <option value="REVO">Honda REVO X / FIT</option>
-                  <option value="SUPRA X 125">Honda SUPRA X 125</option>
-                </optgroup>
-                <optgroup label="─ Sport & Premium / 3 KPB ─">
-                  <option value="VARIO 160">Honda VARIO 160</option>
-                  <option value="PCX 160">Honda PCX 160</option>
-                  <option value="ADV 160">Honda ADV 160</option>
-                  <option value="STYLO 160">Honda STYLO 160</option>
-                  <option value="CB150R">Honda CB150R / X</option>
-                  <option value="CBR 150R">Honda CBR 150R</option>
-                  <option value="CBR 250RR">Honda CBR 250RR</option>
-                  <option value="CRF 150L">Honda CRF 150L</option>
-                  <option value="SONIC 150R">Honda SONIC 150R</option>
-                  <option value="SUPRA GTR 150">Honda SUPRA GTR 150</option>
-                </optgroup>
-              </select>
-            </div>
-          </div>
-          <div class="field-group">
-            <label class="field-label">Tanggal Pembelian (Faktur)</label>
-            <div class="field-wrap">
-              <span class="f-prefix">📆</span>
-              <input type="date" id="kpbTanggal">
-            </div>
-          </div>
-          <div class="btn-row" style="margin-top:16px;">
-            <button class="btn-primary" onclick="hitungKPB()">📅 HITUNG JADWAL SERVIS</button>
-          </div>
-
-          <div id="hasilKPB" style="display:none;">
-            <div style="display:flex;align-items:center;gap:10px;margin:22px 0 0;">
-              <div style="font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--ink);">Jadwal Servis Anda</div>
-              <div style="flex:1;height:1px;background:var(--silver);"></div>
-            </div>
-            <div id="timelineKPB" class="timeline"></div>
-            <div class="notice" style="margin-top:16px;">
-              ⚠️&nbsp; Harap bawa Buku Servis &amp; STNK. Toleransi maksimal +1 bulan atau +500 km dari batas tertera.
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div><!-- /page-wrap -->
-
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="footer-inner">
-      <div class="footer-logo">
-        <img src="https://i.imgur.com/8fSvYUp.png" alt="Naga Mas Motor">
-        <div style="font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;color:var(--ink-30);letter-spacing:.3px;">NAGA MAS MOTOR</div>
-      </div>
-      <div class="footer-copy">© 2026 Naga Mas Motor · Dealer Resmi Honda Tegal &amp; Brebes</div>
-    </div>
-  </footer>
-
-  <!-- BOOKING MODAL -->
-  <div class="modal-bg" id="modalBg">
-    <div class="modal" role="dialog" aria-modal="true">
-      <div class="modal-hd">
-        <div class="modal-hd-bar"></div>
-        <div class="modal-hd-inner">
-          <div class="modal-title">BOOKING <em>SERVICE</em></div>
-          <button class="modal-close" onclick="tutupBooking()">×</button>
-        </div>
-      </div>
-      <div class="modal-body">
-        <div class="form-sec">
-          <div class="fs-num">1</div>
-          <div class="fs-lbl">Data Pelanggan</div>
-          <div class="fs-line"></div>
-        </div>
-        <div class="fg">
-          <label>Nama Lengkap</label>
-          <input type="text" id="bNama" class="fctrl" placeholder="Nama sesuai KTP">
-        </div>
-        <div class="fg">
-          <label>Nomor WhatsApp</label>
-          <input type="number" id="bHP" class="fctrl" placeholder="08xxxxxxxxxx">
-        </div>
-
-        <div class="form-sec">
-          <div class="fs-num">2</div>
-          <div class="fs-lbl">Data Kendaraan</div>
-          <div class="fs-line"></div>
-        </div>
-        <div class="fg">
-          <label>Tipe Motor</label>
-          <select id="bMotor" class="fctrl">
-            <option>Beat Series</option>
-            <option>Vario 125 Series</option>
-            <option>Vario 160 Series</option>
-            <option>Scoopy</option>
-            <option>PCX 160</option>
-            <option>ADV 160</option>
-            <option>CRF 150L</option>
-            <option>Supra / Revo</option>
-            <option>Lainnya</option>
-          </select>
-        </div>
-        <div class="fg">
-          <label>Jenis Service</label>
-          <select id="bJenis" class="fctrl">
-            <option>Service Berkala (KPB)</option>
-            <option>Ganti Oli</option>
-            <option>Tune Up / Service Ringan</option>
-            <option>Perbaikan Berat</option>
-            <option>Ganti Sparepart</option>
-          </select>
-        </div>
-
-        <div class="form-sec">
-          <div class="fs-num">3</div>
-          <div class="fs-lbl">Lokasi &amp; Jadwal</div>
-          <div class="fs-line"></div>
-        </div>
-        <div class="fg">
-          <label>Pilih Bengkel AHASS</label>
-          <select id="bCabang" class="fctrl" onchange="updateInfoCabang()">
-            <option value="">— Pilih Lokasi Bengkel —</option>
-          </select>
-          <div id="cabangDetail" class="branch-card"></div>
-        </div>
-        <div class="two-col">
-          <div class="fg">
-            <label>Tanggal Booking</label>
-            <input type="date" id="bTanggal" class="fctrl">
-          </div>
-          <div class="fg">
-            <label>Jam</label>
-            <select id="bJam" class="fctrl">
-              <option>08:00</option><option>09:00</option><option>10:00</option>
-              <option>11:00</option><option>13:00</option><option>14:00</option><option>15:00</option>
-            </select>
-          </div>
-        </div>
-
-        <button class="btn-wa" onclick="kirimBooking()">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          KIRIM BOOKING VIA WHATSAPP
+      <h1 class="hero-title">Layanan<br>Terbaik untuk<br><em>Motor Honda Anda</em></h1>
+      <p class="hero-desc">Lacak dokumen BBN (STNK, Plat Nomor & BPKB), booking servis AHASS, dan cek jadwal KPB motor Honda Anda — semua dalam satu portal layanan Naga Mas Motor.</p>
+      <div class="hero-actions">
+        <button class="btn-hero-primary" onclick="scrollTo('#tracking')">
+          🔍 Cek Dokumen BBN
+        </button>
+        <button class="btn-hero-ghost" onclick="bukaBooking()">
+          🛠️ Booking Service
         </button>
       </div>
+      <div class="hero-stats">
+        <div>
+          <div class="stat-val">12+</div>
+          <div class="stat-lbl">Cabang AHASS</div>
+        </div>
+        <div>
+          <div class="stat-val">20K+</div>
+          <div class="stat-lbl">Pelanggan Dilayani</div>
+        </div>
+        <div>
+          <div class="stat-val">1995</div>
+          <div class="stat-lbl">Berdiri Sejak</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-card-mock">
+        <div class="mock-head">
+          <div class="mock-logo">
+            <img src="https://i.imgur.com/8fSvYUp.png" alt="NMM">
+          </div>
+          <div class="mock-head-text">
+            <div class="mock-title">Status Dokumen</div>
+            <div class="mock-sub">Naga Mas Motor</div>
+          </div>
+          <div class="mock-badge">
+            <svg width="7" height="7" viewBox="0 0 8 8"><circle cx="4" cy="4" r="4" fill="currentColor"/></svg>
+            Live
+          </div>
+        </div>
+        <div class="mock-doc-row">
+          <div class="mock-doc-label"><span>📄</span> STNK</div>
+          <div class="mbadge-ok">SELESAI</div>
+        </div>
+        <div class="mock-doc-row">
+          <div class="mock-doc-label"><span>🔖</span> Plat Nomor</div>
+          <div class="mbadge-ok">SELESAI</div>
+        </div>
+        <div class="mock-doc-row">
+          <div class="mock-doc-label"><span>📘</span> BPKB</div>
+          <div class="mbadge-wip">PROSES</div>
+        </div>
+        <div class="mock-footer">
+          <div class="mock-avatar"></div>
+          <div class="mock-footer-text">
+            <strong>Budi Santoso</strong><br>H ··· 12345 &nbsp;|&nbsp; R ··· 67890
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+</section>
 
-  <!-- JAVASCRIPT -->
-  <script>
-    /* ============================================================
-       ⚙️  GANTI DENGAN URL GAS WEB APP KAMU
-    ============================================================ */
-    var GAS_URL = "https://script.google.com/macros/s/AKfycbySpy6AR-24NuIUTejC911UzqD1wAL48BPeB4f7xmhunuH50bOOUs9DIMDo4hH4vdN7/exec";
-    /* ============================================================ */
+<!-- ═══ SERVICE CARDS ═══ -->
+<section class="section-cards" id="layanan">
+  <div class="container">
+    <div class="section-hd reveal">
+      <div class="section-eyebrow">
+        <div class="eyebrow-line"></div>
+        <div class="eyebrow-text">Layanan Kami</div>
+      </div>
+      <h2 class="section-title">Apa yang bisa kami bantu?</h2>
+      <p class="section-desc">Akses layanan pelanggan Naga Mas Motor dengan mudah, cepat, dan transparan.</p>
+    </div>
+    <div class="cards-grid">
+      <div class="scard reveal" onclick="scrollTo('#tracking')" style="transition-delay:.05s">
+        <div class="scard-icon">🔍</div>
+        <div class="scard-title">Lacak Dokumen BBN</div>
+        <div class="scard-desc">Pantau status STNK, Plat Nomor, dan BPKB motor Honda Anda secara real-time menggunakan No. Mesin &amp; Rangka.</div>
+        <div class="scard-arrow">
+          Cek Sekarang
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </div>
+      <div class="scard reveal" onclick="bukaBooking()" style="transition-delay:.1s">
+        <div class="scard-icon">🛠️</div>
+        <div class="scard-title">Booking Service</div>
+        <div class="scard-desc">Pesan jadwal servis di bengkel AHASS terdekat tanpa antri. Pilih cabang, tanggal, dan jam sesuai kenyamanan Anda.</div>
+        <div class="scard-arrow">
+          Booking Sekarang
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </div>
+      <div class="scard reveal" onclick="scrollTo('#kpb')" style="transition-delay:.15s">
+        <div class="scard-icon">📅</div>
+        <div class="scard-title">Jadwal KPB</div>
+        <div class="scard-desc">Hitung kapan batas waktu servis gratis (Kunjungan Pertama Berkala) motor Honda Anda berdasarkan tanggal faktur.</div>
+        <div class="scard-arrow">
+          Hitung Jadwal
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    var dbCabang = [
-      {id:"Brebes",     name:"NagaMas Brebes",          hp:"6281902000600", info:"Sen–Sab 08.00–16.00 · Min/Libur 08.00–13.00", ancer:"Timur Alun-alun Brebes, samping Bank Jateng",           map:"https://www.google.com/maps/search/?api=1&query=Naga+Mas+Motor+Brebes"},
-      {id:"Losari",     name:"NagaMas Losari",           hp:"6281902000600", info:"Hanya SABTU 09.00–11.00 WIB",                   ancer:"Samping Indomaret Losari",                              map:"https://www.google.com/maps/search/?api=1&query=Indomaret+Losari+Brebes"},
-      {id:"Kersana",    name:"NagaMas Kersana",          hp:"6281902000600", info:"Sen–Sab 08.00–16.00 · Min/Libur 08.00–13.00", ancer:"Barat POM Bensin Kersana (Ciampel)",                    map:"https://www.google.com/maps/search/?api=1&query=SPBU+Kersana+Brebes"},
-      {id:"Jatibarang", name:"NagaMas Jatibarang",       hp:"6281902000600", info:"Sen–Sab 08.00–16.00 · Min/Libur 08.00–13.00", ancer:"Jl. Raya Barat / Depan Bank Mandiri Jatibarang",        map:"https://goo.gl/maps/ojSYBvjwKXDjGfk16"},
-      {id:"Bumiayu",    name:"NagaMas Bumiayu",          hp:"6281902000600", info:"Sen–Sab 08.00–16.00 · Min/Libur 08.00–13.00", ancer:"Jl. P. Diponegoro 126 / Utara Bakso Jenggot",           map:"https://www.google.com/maps/search/?api=1&query=Naga+Mas+Motor+Bumiayu"},
-      {id:"Tegal1",     name:"NagaMas Tegal (Pusat)",    hp:"6287711428916", info:"Sen–Sab 08.00–16.00 · Min/Libur 08.00–13.00", ancer:"Jl. AR Hakim No 46 (Depan Eks Marina Plaza)",          map:"https://www.google.com/maps/search/?api=1&query=Naga+Mas+Motor+AR+Hakim+Tegal"},
-      {id:"Tegal2",     name:"NagaMas Alun-Alun Tegal",  hp:"6287711428916", info:"Sen–Sab 08.00–16.00 · Min/Libur 08.00–13.00", ancer:"Lampu Merah Perempatan Alun-Alun Tegal",                map:"https://www.google.com/maps/search/?api=1&query=Naga+Mas+Motor+Alun+Alun+Tegal"},
-      {id:"Tarub",      name:"NagaMas Tarub",            hp:"6287711428916", info:"Sen–Sab 08.00–16.00 · Min/Libur 08.00–13.00", ancer:"Jl. Garuda / Selatan Pasar Kemantran",                  map:"https://www.google.com/maps/search/?api=1&query=Pasar+Kemantran+Tegal"},
-      {id:"Dukuhturi",  name:"NagaMas Dukuhturi",        hp:"6287711428916", info:"Sen–Sab 08.00–16.00 · Min/Libur 08.00–13.00", ancer:"Jl. Raya Tegal II Dukuhturi, Pagongan",                 map:"https://www.google.com/maps/search/?api=1&query=Naga+Mas+Motor+Dukuhturi"},
-      {id:"Slawi",      name:"NagaMas Slawi",            hp:"6281902000601", info:"Sen–Sab 08.00–16.00 · Min/Libur 08.00–13.00", ancer:"Jl. Ahmad Yani No 109 / Utara Yogya Mall Slawi",        map:"https://www.google.com/maps/search/?api=1&query=Naga+Mas+Motor+Slawi"},
-      {id:"Adiwerna",   name:"NagaMas Adiwerna",         hp:"6281902000601", info:"Sen–Sab 08.00–16.00 · Min/Libur 08.00–13.00", ancer:"Depan Kantor POS Adiwerna",                             map:"https://g.page/r/CRf4YLNBsHnEEAE/review"},
-      {id:"Margasari",  name:"NagaMas Margasari",        hp:"6281902000601", info:"Hanya SABTU 09.00–11.00 WIB",                   ancer:"Pasar Margasari, deretan toko Mas Arjuna",              map:"https://www.google.com/maps/search/?api=1&query=Pasar+Margasari+Tegal"}
-    ];
+<!-- ═══ TRACKING SECTION ═══ -->
+<section class="section-tracking" id="tracking">
+  <div class="container">
+    <div class="section-inner">
+      <!-- Form -->
+      <div class="sticky-form reveal">
+        <div class="form-card">
+          <div class="form-card-head">
+            <div class="form-card-htitle">Cek Status Dokumen BBN</div>
+            <div class="form-card-hsub">Masukkan 5 digit angka terakhir</div>
+          </div>
+          <div class="form-card-body">
+            <div class="fg">
+              <label class="flabel">Nomor Mesin (5 Digit Terakhir)</label>
+              <div class="fw" id="wM">
+                <span class="fp">⚙️</span>
+                <input id="iMesin" type="tel" maxlength="5" placeholder="Contoh: 12345" autocomplete="off">
+                <span class="fctr" id="cM">0/5</span>
+              </div>
+            </div>
+            <div class="fg">
+              <label class="flabel">Nomor Rangka (5 Digit Terakhir)</label>
+              <div class="fw" id="wR">
+                <span class="fp">🔑</span>
+                <input id="iRangka" type="tel" maxlength="5" placeholder="Contoh: 67890" autocomplete="off">
+                <span class="fctr" id="cR">0/5</span>
+              </div>
+            </div>
+            <div class="notice-strip">
+              ⚠️ &nbsp;5 digit angka terakhir dari No. Mesin &amp; Rangka di STNK atau faktur pembelian.
+            </div>
+            <div class="btn-row">
+              <button class="btn-full" onclick="lakukanPencarian()">🔍 Cek Status</button>
+              <button class="btn-ghost-sm" onclick="resetForm()" title="Reset">↺</button>
+            </div>
+          </div>
+          <div class="loading-bar" id="loadingBar">
+            <div class="spin"></div> Mengambil data dari sistem…
+          </div>
+        </div>
+        <div id="hasilPencarian" style="margin-top:14px"></div>
+      </div>
+      <!-- Info -->
+      <div class="info-col reveal" style="transition-delay:.1s">
+        <div class="info-badge">📋 Panduan Penggunaan</div>
+        <h2 class="info-heading">Cara Cek<br><span>Dokumen BBN</span></h2>
+        <p class="info-desc">Status dokumen Balik Nama Kendaraan (BBN) dapat dicek kapan saja dan di mana saja. Cukup siapkan nomor mesin dan rangka dari motor Honda Anda.</p>
+        <div class="step-list">
+          <div class="step-item">
+            <div class="step-num">1</div>
+            <div class="step-text">
+              <strong>Lihat STNK atau Faktur</strong>
+              <span>Temukan nomor mesin dan nomor rangka di STCK/Surat Jalan atau faktur pembelian motor Anda.</span>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">2</div>
+            <div class="step-text">
+              <strong>Masukkan 5 Digit Terakhir</strong>
+              <span>Ketik 5 angka terakhir dari masing-masing nomor ke kolom yang tersedia.</span>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">3</div>
+            <div class="step-text">
+              <strong>Lihat Status Real-time</strong>
+              <span>Sistem kami akan menampilkan status terkini STNK, Plat Nomor, dan BPKB Anda secara langsung.</span>
+            </div>
+          </div>
+        </div>
+        <div style="background:var(--f0);border:1.5px solid var(--f2);border-radius:var(--r);padding:18px 20px">
+          <div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:var(--ink);margin-bottom:6px">Ada kendala?</div>
+          <div style="font-size:13px;color:var(--ink-4);line-height:1.5;margin-bottom:12px">Hubungi CS kami via WhatsApp untuk bantuan langsung.</div>
+          <a href="https://wa.me/6281902000601?text=Halo%20Kak%2C%20saya%20mau%20tanya%20tentang%20dokumen%20BBN" target="_blank" style="display:inline-flex;align-items:center;gap:7px;background:#25D366;color:#fff;border-radius:8px;padding:9px 16px;font-size:13px;font-weight:700">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Chat WhatsApp CS
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    /* INIT */
-    (function(){
-      var sel = document.getElementById('bCabang');
-      dbCabang.forEach(function(c){
-        var o = document.createElement('option');
-        o.value = c.id; o.textContent = c.name; sel.appendChild(o);
-      });
-      var today = new Date().toISOString().split('T')[0];
-      document.getElementById('bTanggal').min = today;
-      document.getElementById('bTanggal').value = today;
+<!-- ═══ KPB SECTION ═══ -->
+<section class="section-kpb" id="kpb">
+  <div class="container">
+    <div class="section-hd reveal">
+      <div class="section-eyebrow">
+        <div class="eyebrow-line"></div>
+        <div class="eyebrow-text">Servis Gratis</div>
+      </div>
+      <h2 class="section-title">Jadwal KPB Motor Anda</h2>
+      <p class="section-desc">Kunjungan Pertama Berkala (KPB) adalah hak Anda sebagai pembeli motor Honda baru. Jangan sampai terlewat!</p>
+    </div>
+    <div class="kpb-grid">
+      <div class="reveal">
+        <div class="kpb-form-card">
+          <div class="kpb-form-head">
+            <div class="kpb-form-htitle">📅 Hitung Jadwal Servis Gratis</div>
+          </div>
+          <div class="kpb-form-body">
+            <div class="fg">
+              <label class="flabel">Tipe Motor</label>
+              <div class="fw">
+                <span class="fp">🏍️</span>
+                <select id="kpbMotor">
+                  <optgroup label="─ Matic 110cc / 4 KPB ─">
+                    <option value="BEAT">Honda BEAT</option>
+                    <option value="GENIO">Honda GENIO</option>
+                    <option value="SCOOPY">Honda SCOOPY</option>
+                    <option value="VARIO 125">Honda VARIO 125</option>
+                  </optgroup>
+                  <optgroup label="─ Bebek / 4 KPB ─">
+                    <option value="REVO">Honda REVO X / FIT</option>
+                    <option value="SUPRA X 125">Honda SUPRA X 125</option>
+                  </optgroup>
+                  <optgroup label="─ Sport & Premium / 3 KPB ─">
+                    <option value="VARIO 160">Honda VARIO 160</option>
+                    <option value="PCX 160">Honda PCX 160</option>
+                    <option value="ADV 160">Honda ADV 160</option>
+                    <option value="STYLO 160">Honda STYLO 160</option>
+                    <option value="CB150R">Honda CB150R / X</option>
+                    <option value="CBR 150R">Honda CBR 150R</option>
+                    <option value="CBR 250RR">Honda CBR 250RR</option>
+                    <option value="CRF 150L">Honda CRF 150L</option>
+                    <option value="SONIC 150R">Honda SONIC 150R</option>
+                    <option value="SUPRA GTR 150">Honda SUPRA GTR 150</option>
+                  </optgroup>
+                </select>
+              </div>
+            </div>
+            <div class="fg">
+              <label class="flabel">Tanggal Pembelian (Faktur)</label>
+              <div class="fw">
+                <span class="fp">📆</span>
+                <input type="date" id="kpbTanggal">
+              </div>
+            </div>
+            <div class="btn-row" style="margin-top:16px">
+              <button class="btn-full" onclick="hitungKPB()">📅 Hitung Jadwal</button>
+            </div>
+            <div id="hasilKPB" style="display:none;margin-top:22px">
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px">
+                <div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;color:var(--ink)">Jadwal Anda</div>
+                <div style="flex:1;height:1px;background:var(--f2)"></div>
+              </div>
+              <div id="timelineKPB" class="timeline"></div>
+              <div class="notice-strip" style="margin-top:16px">
+                ⚠️ &nbsp;Bawa Buku Servis &amp; STNK. Toleransi max +1 bulan atau +500 km.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="kpb-info reveal" style="transition-delay:.1s">
+        <div class="kpb-info-icon">🎁</div>
+        <h3 class="kpb-info-title">Apa itu KPB<br>&amp; Keuntungannya?</h3>
+        <p class="kpb-info-desc">KPB adalah program servis gratis dari Honda untuk pembeli motor baru. Manfaatkan sebelum masa berlakunya habis — hemat puluhan ribu hingga ratusan ribu rupiah!</p>
+        <div class="kpb-badge-grid">
+          <div class="kpb-badge">
+            <div class="kpb-badge-val">4×</div>
+            <div class="kpb-badge-lbl">Servis gratis motor matic kecil &amp; bebek</div>
+          </div>
+          <div class="kpb-badge">
+            <div class="kpb-badge-val">3×</div>
+            <div class="kpb-badge-lbl">Servis gratis motor sport &amp; premium</div>
+          </div>
+          <div class="kpb-badge">
+            <div class="kpb-badge-val">KPB 1</div>
+            <div class="kpb-badge-lbl">Gratis oli + jasa servis</div>
+          </div>
+          <div class="kpb-badge">
+            <div class="kpb-badge-val">KPB 2+</div>
+            <div class="kpb-badge-lbl">Gratis jasa servis saja</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-      function setupInput(iid, wid, cid){
-        var el=document.getElementById(iid), wrap=document.getElementById(wid), ctr=document.getElementById(cid);
-        el.addEventListener('input',function(){
-          this.value=this.value.replace(/[^0-9]/g,'');
-          var n=this.value.length;
-          ctr.textContent=n+'/5';
-          if(n===5){ wrap.classList.add('valid'); ctr.classList.add('ok'); }
-          else      { wrap.classList.remove('valid'); ctr.classList.remove('ok'); }
-        });
-      }
-      setupInput('inputMesin','wrapMesin','ctrMesin');
-      setupInput('inputRangka','wrapRangka','ctrRangka');
+<!-- ═══ TRUST SECTION ═══ -->
+<section class="section-trust">
+  <div class="container">
+    <div class="trust-grid">
+      <div class="trust-left reveal">
+        <div class="section-eyebrow">
+          <div class="eyebrow-line"></div>
+          <div class="eyebrow-text">Kenapa Naga Mas?</div>
+        </div>
+        <h2 class="trust-title">Dealer Honda<br>Kepercayaan Anda<br>Sejak 2007</h2>
+        <p class="trust-desc">Lebih dari 17 tahun melayani masyarakat Tegal &amp; Brebes dengan standar layanan resmi Honda. Ratusan ribu motor terjual, ribuan pelanggan puas.</p>
+        <a href="https://wa.me/6287711428916" target="_blank" class="trust-wa-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Hubungi Kami Sekarang
+        </a>
+      </div>
+      <div class="trust-stat reveal" style="transition-delay:.1s">
+        <div class="trust-stat-accent"></div>
+        <div class="trust-stat-val">12+</div>
+        <div class="trust-stat-label">Cabang AHASS Resmi<br>di Tegal &amp; Brebes</div>
+      </div>
+      <div class="trust-stat reveal" style="transition-delay:.15s">
+        <div class="trust-stat-accent"></div>
+        <div class="trust-stat-val">17+</div>
+        <div class="trust-stat-label">Tahun Pengalaman<br>Melayani Honda</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-      document.getElementById('modalBg').addEventListener('click',function(e){ if(e.target===this)tutupBooking(); });
-    })();
+<!-- ═══ BRANCH SECTION ═══ -->
+<section class="section-branch" id="cabang">
+  <div class="container">
+    <div class="section-hd reveal">
+      <div class="section-eyebrow">
+        <div class="eyebrow-line"></div>
+        <div class="eyebrow-text">Lokasi Kami</div>
+      </div>
+      <h2 class="section-title">12 Cabang Siap Melayani Anda</h2>
+      <p class="section-desc">Temukan AHASS Naga Mas Motor terdekat di wilayah Tegal dan Brebes.</p>
+    </div>
+    <div class="branches-grid" id="branchGrid"></div>
+  </div>
+</section>
 
-    /* TAB */
-    function gantiTab(sec, btn){
-      document.querySelectorAll('.section').forEach(function(s){s.classList.remove('active');});
-      document.querySelectorAll('.tab-btn:not(.tab-cta)').forEach(function(b){b.classList.remove('active');});
-      document.getElementById('sec-'+sec).classList.add('active');
-      btn.classList.add('active');
-    }
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="https://i.imgur.com/8fSvYUp.png" alt="Naga Mas Motor">
+        <p>Dealer Resmi Honda untuk wilayah Tegal &amp; Brebes. Melayani penjualan, servis, dan spare part motor Honda dengan standar resmi AHM.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Layanan</h4>
+        <a onclick="scrollTo('#tracking')">Lacak Dokumen BBN</a>
+        <a onclick="scrollTo('#kpb')">Jadwal KPB</a>
+        <a onclick="bukaBooking()">Booking Service</a>
+        <a onclick="scrollTo('#cabang')">Lokasi Cabang</a>
+      </div>
+      <div class="footer-col">
+        <h4>Kontak</h4>
+        <a href="https://wa.me/6287711428916" target="_blank">WA Tegal: 0877-1142-8916</a>
+        <a href="https://wa.me/6281902000600" target="_blank">WA Brebes: 0819-0200-0600</a>
+        <a href="https://wa.me/6281902000601" target="_blank">WA Slawi: 0819-0200-0601</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 Naga Mas Motor · Dealer Resmi Honda Tegal &amp; Brebes · All rights reserved.</div>
+      <div class="footer-honda">
+        <div class="honda-h">H</div>
+        Dealer Resmi Honda
+      </div>
+    </div>
+  </div>
+</footer>
 
-    /* RESET */
-    function resetForm(){
-      ['inputMesin','inputRangka'].forEach(function(id){document.getElementById(id).value='';});
-      ['wrapMesin','wrapRangka'].forEach(function(id){document.getElementById(id).classList.remove('valid');});
-      ['ctrMesin','ctrRangka'].forEach(function(id){var e=document.getElementById(id);e.textContent='0/5';e.classList.remove('ok');});
-      document.getElementById('hasilPencarian').innerHTML='';
-      document.getElementById('inputMesin').focus();
-    }
+<!-- ═══ FLOATING WA ═══ -->
+<div class="wa-float">
+  <div class="wa-float-label">Hubungi CS Kami</div>
+  <a href="https://wa.me/6287711428916?text=Halo%20Kak%2C%20Salam%20Satu%20Hati%20🙏" target="_blank">
+    <button class="wa-btn-float" aria-label="WhatsApp">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </button>
+  </a>
+</div>
 
-    /* SEARCH */
-    function lakukanPencarian(){
-      var m=document.getElementById('inputMesin').value.trim();
-      var r=document.getElementById('inputRangka').value.trim();
-      if(m.length!==5||r.length!==5){ alert('Harap isi 5 digit angka terakhir No. Mesin dan No. Rangka.'); return; }
-      var ld=document.getElementById('loadingBox'), hs=document.getElementById('hasilPencarian');
-      ld.style.display='flex'; hs.innerHTML='';
-      fetch(GAS_URL+'?action=cariData&mesin='+encodeURIComponent(m)+'&rangka='+encodeURIComponent(r))
-        .then(function(res){return res.json();})
-        .then(function(data){ ld.style.display='none'; tampilkanHasil(data); })
-        .catch(function(){ ld.style.display='none'; renderAlert('Koneksi Gagal','Tidak dapat terhubung ke server. Periksa koneksi internet Anda.'); });
-    }
+<!-- ═══ BOOKING MODAL ═══ -->
+<div class="modal-bg" id="modalBg">
+  <div class="modal">
+    <div class="modal-hd">
+      <div class="modal-hd-bar"></div>
+      <div class="modal-hd-in">
+        <div class="modal-title">BOOKING <em>SERVICE</em></div>
+        <button class="modal-x" onclick="tutupBooking()">×</button>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="fsec">
+        <div class="fsec-n">1</div>
+        <div class="fsec-l">Data Pelanggan</div>
+        <div class="fsec-line"></div>
+      </div>
+      <div class="mfg">
+        <label>Nama Lengkap</label>
+        <input type="text" id="bNama" class="mctrl" placeholder="Nama sesuai KTP">
+      </div>
+      <div class="mfg">
+        <label>Nomor WhatsApp</label>
+        <input type="number" id="bHP" class="mctrl" placeholder="08xxxxxxxxxx">
+      </div>
+      <div class="fsec">
+        <div class="fsec-n">2</div>
+        <div class="fsec-l">Data Kendaraan</div>
+        <div class="fsec-line"></div>
+      </div>
+      <div class="mfg">
+        <label>Tipe Motor</label>
+        <select id="bMotor" class="mctrl">
+          <option>Beat Series</option><option>Vario 125 Series</option>
+          <option>Vario 160 Series</option><option>Scoopy</option>
+          <option>PCX 160</option><option>ADV 160</option>
+          <option>CRF 150L</option><option>Supra / Revo</option><option>Lainnya</option>
+        </select>
+      </div>
+      <div class="mfg">
+        <label>Jenis Service</label>
+        <select id="bJenis" class="mctrl">
+          <option>Service Berkala (KPB)</option><option>Ganti Oli</option>
+          <option>Tune Up / Service Ringan</option><option>Perbaikan Berat</option>
+          <option>Ganti Sparepart</option>
+        </select>
+      </div>
+      <div class="fsec">
+        <div class="fsec-n">3</div>
+        <div class="fsec-l">Lokasi &amp; Jadwal</div>
+        <div class="fsec-line"></div>
+      </div>
+      <div class="mfg">
+        <label>Pilih Bengkel AHASS</label>
+        <select id="bCabang" class="mctrl" onchange="updateInfoCabang()">
+          <option value="">— Pilih Lokasi Bengkel —</option>
+        </select>
+        <div id="cabangDetail" class="binfo-card"></div>
+      </div>
+      <div class="two-col">
+        <div class="mfg"><label>Tanggal</label><input type="date" id="bTanggal" class="mctrl"></div>
+        <div class="mfg">
+          <label>Jam</label>
+          <select id="bJam" class="mctrl">
+            <option>08:00</option><option>09:00</option><option>10:00</option>
+            <option>11:00</option><option>13:00</option><option>14:00</option><option>15:00</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn-wa-submit" onclick="kirimBooking()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        KIRIM BOOKING VIA WHATSAPP
+      </button>
+    </div>
+  </div>
+</div>
 
-    function tampilkanHasil(data){
-      var el=document.getElementById('hasilPencarian');
-      if(!data||(typeof data==='string'&&data.includes('Error'))){ renderAlert('Terjadi Kesalahan',typeof data==='string'?data:'Respons server tidak valid.'); return; }
-      if(!Array.isArray(data)||data.length===0){ renderAlert('Data Tidak Ditemukan','Nomor mesin/rangka tidak ditemukan dalam sistem. Pastikan 5 digit terakhir sudah benar, atau hubungi dealer kami.'); return; }
-      var html='';
-      data.forEach(function(d){
-        var sOk=(d.stat_stnk||'').toUpperCase().includes('SELESAI');
-        var pOk=(d.stat_plat||'').toUpperCase().includes('SELESAI');
-        var bOk=(d.stat_bpkb||'').toUpperCase().includes('SELESAI');
-        function badge(ok,text){ return '<span class="badge '+(ok?'badge-ok':'badge-wip')+'">'+esc(text||(ok?'SELESAI':'DALAM PROSES'))+'</span>'; }
-        function drow(ok,tgl){ return (ok&&tgl&&tgl!=='-')?'<div class="doc-date">Selesai: '+esc(tgl)+'</div>':''; }
-        html+='<div class="result-card">';
-        html+='<div class="r-head"><div class="r-name">'+esc(d.nama)+'</div>';
-        if(d.nopol&&d.nopol!=='-') html+='<div class="r-nopol">'+esc(d.nopol)+'</div>';
-        html+='</div>';
-        html+='<div class="r-meta"><div class="r-meta-cell"><div class="r-meta-lbl">No. Mesin</div><div class="r-meta-val">···'+esc(String(d.mesin).slice(-5))+'</div></div><div class="r-meta-cell"><div class="r-meta-lbl">No. Rangka</div><div class="r-meta-val">···'+esc(String(d.rangka).slice(-5))+'</div></div></div>';
-        html+='<div class="doc-row"><div class="doc-idx">1</div><div class="doc-info"><div class="doc-name">STNK</div><div class="doc-sublabel">Surat Tanda Nomor Kendaraan</div></div><div>'+badge(sOk,d.stat_stnk)+drow(sOk,d.tgl_stnk)+'</div></div>';
-        html+='<div class="doc-row"><div class="doc-idx">2</div><div class="doc-info"><div class="doc-name">Plat Nomor</div><div class="doc-sublabel">Tanda Nomor Kendaraan Bermotor</div></div><div>'+badge(pOk,d.stat_plat)+drow(pOk,d.tgl_plat)+'</div></div>';
-        html+='<div class="doc-row"><div class="doc-idx">3</div><div class="doc-info"><div class="doc-name">BPKB</div><div class="doc-sublabel">Buku Pemilik Kendaraan Bermotor</div></div><div>'+badge(bOk,d.stat_bpkb)+drow(bOk,d.tgl_bpkb)+'</div></div>';
-        html+='</div>';
-      });
-      el.innerHTML=html;
-    }
+<!-- ═══ JAVASCRIPT ═══ -->
+<script>
+/* ============================================================
+   ⚙️  GANTI DENGAN URL GAS WEB APP KAMU
+============================================================ */
+var GAS_URL = "https://script.google.com/macros/s/AKfycbySpy6AR-24NuIUTejC911UzqD1wAL48BPeB4f7xmhunuH50bOOUs9DIMDo4hH4vdN7/exec";
+/* ============================================================ */
 
-    function renderAlert(title,desc){
-      document.getElementById('hasilPencarian').innerHTML='<div class="alert-card"><div class="alert-title">'+esc(title)+'</div><div class="alert-desc">'+esc(desc)+'</div></div>';
-    }
-    function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+var dbCabang=[
+  {id:"Brebes",     region:"Brebes",name:"NagaMas Brebes",         hp:"6281902000600",info:"Sen–Sab 08.00–16.00 · Min/Libur 08.00–13.00",ancer:"Timur Alun-alun Brebes, samping Bank Jateng",          map:"https://www.google.com/maps/search/?api=1&query=Naga+Mas+Motor+Brebes"},
+  {id:"Losari",     region:"Brebes",name:"NagaMas Losari",          hp:"6281902000600",info:"Hanya SABTU 09.00–11.00 WIB",                  ancer:"Samping Indomaret Losari",                             map:"https://www.google.com/maps/search/?api=1&query=Indomaret+Losari+Brebes"},
+  {id:"Kersana",    region:"Brebes",name:"NagaMas Kersana",         hp:"6281902000600",info:"Sen–Sab 08.00–16.00 · Min/Libur 08.00–13.00",ancer:"Barat POM Bensin Kersana (Ciampel)",                   map:"https://www.google.com/maps/search/?api=1&query=SPBU+Kersana+Brebes"},
+  {id:"Jatibarang", region:"Brebes",name:"NagaMas Jatibarang",      hp:"6281902000600",info:"Sen–Sab 08.00–16.00 · Min/Libur 08.00–13.00",ancer:"Jl. Raya Barat / Depan Bank Mandiri Jatibarang",       map:"https://goo.gl/maps/ojSYBvjwKXDjGfk16"},
+  {id:"Bumiayu",    region:"Brebes",name:"NagaMas Bumiayu",         hp:"6281902000600",info:"Sen–Sab 08.00–16.00 · Min/Libur 08.00–13.00",ancer:"Jl. P. Diponegoro 126 / Utara Bakso Jenggot",          map:"https://www.google.com/maps/search/?api=1&query=Naga+Mas+Motor+Bumiayu"},
+  {id:"Tegal1",     region:"Tegal", name:"NagaMas Tegal (Pusat)",   hp:"6287711428916",info:"Sen–Sab 08.00–16.00 · Min/Libur 08.00–13.00",ancer:"Jl. AR Hakim No 46 (Depan Eks Marina Plaza)",         map:"https://www.google.com/maps/search/?api=1&query=Naga+Mas+Motor+AR+Hakim+Tegal"},
+  {id:"Tegal2",     region:"Tegal", name:"NagaMas Alun-Alun Tegal", hp:"6287711428916",info:"Sen–Sab 08.00–16.00 · Min/Libur 08.00–13.00",ancer:"Lampu Merah Perempatan Alun-Alun Tegal",               map:"https://www.google.com/maps/search/?api=1&query=Naga+Mas+Motor+Alun+Alun+Tegal"},
+  {id:"Tarub",      region:"Tegal", name:"NagaMas Tarub",           hp:"6287711428916",info:"Sen–Sab 08.00–16.00 · Min/Libur 08.00–13.00",ancer:"Jl. Garuda / Selatan Pasar Kemantran",                 map:"https://www.google.com/maps/search/?api=1&query=Pasar+Kemantran+Tegal"},
+  {id:"Dukuhturi",  region:"Tegal", name:"NagaMas Dukuhturi",       hp:"6287711428916",info:"Sen–Sab 08.00–16.00 · Min/Libur 08.00–13.00",ancer:"Jl. Raya Tegal II Dukuhturi, Pagongan",                map:"https://www.google.com/maps/search/?api=1&query=Naga+Mas+Motor+Dukuhturi"},
+  {id:"Slawi",      region:"Slawi", name:"NagaMas Slawi",           hp:"6281902000601",info:"Sen–Sab 08.00–16.00 · Min/Libur 08.00–13.00",ancer:"Jl. Ahmad Yani No 109 / Utara Yogya Mall Slawi",       map:"https://www.google.com/maps/search/?api=1&query=Naga+Mas+Motor+Slawi"},
+  {id:"Adiwerna",   region:"Slawi", name:"NagaMas Adiwerna",        hp:"6281902000601",info:"Sen–Sab 08.00–16.00 · Min/Libur 08.00–13.00",ancer:"Depan Kantor POS Adiwerna",                            map:"https://g.page/r/CRf4YLNBsHnEEAE/review"},
+  {id:"Margasari",  region:"Slawi", name:"NagaMas Margasari",       hp:"6281902000601",info:"Hanya SABTU 09.00–11.00 WIB",                  ancer:"Pasar Margasari, deretan toko Mas Arjuna",             map:"https://www.google.com/maps/search/?api=1&query=Pasar+Margasari+Tegal"}
+];
 
-    /* KPB */
-    function hitungKPB(){
-      var motor=document.getElementById('kpbMotor').value;
-      var tgl=document.getElementById('kpbTanggal').value;
-      if(!tgl){ alert('Pilih tanggal pembelian terlebih dahulu!'); return; }
-      var is3=motor.indexOf('150')>-1||motor.indexOf('160')>-1||motor.indexOf('250')>-1;
-      var tglBeli=new Date(tgl);
-      function addM(d,m){ var r=new Date(d); r.setMonth(r.getMonth()+m); return r; }
-      function fmt(d){ return d.toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'}); }
-      function item(n,title,date,desc){
-        return '<div class="t-item"><div class="t-dot"></div><div class="t-kpb">KPB '+n+'</div>'+
-          '<div class="t-title">'+title+'</div>'+
-          '<div class="t-date">Paling Lambat: '+fmt(date)+'</div>'+
-          '<div class="t-desc">'+desc+'</div></div>';
-      }
-      var html=item(1,'Gratis Oli + Jasa Service',addM(tglBeli,2),'Maks. 1.000 km dari pembelian');
-      if(is3){
-        html+=item(2,'Gratis Jasa Service',addM(tglBeli,6),'Maks. 6.000 km');
-        html+=item(3,'Gratis Jasa Service',addM(tglBeli,12),'Maks. 12.000 km');
-      } else {
-        html+=item(2,'Gratis Jasa Service',addM(tglBeli,4),'Maks. 6.000 km');
-        html+=item(3,'Gratis Jasa Service',addM(tglBeli,8),'Maks. 12.000 km');
-        html+=item(4,'Gratis Jasa Service',addM(tglBeli,12),'Maks. 12 bulan / 12.000 km');
-      }
-      document.getElementById('timelineKPB').innerHTML=html;
-      document.getElementById('hasilKPB').style.display='block';
-      document.getElementById('hasilKPB').scrollIntoView({behavior:'smooth',block:'nearest'});
-    }
+/* ── INIT ── */
+(function(){
+  /* Branch grid */
+  var grid=document.getElementById('branchGrid');
+  dbCabang.forEach(function(c){
+    grid.innerHTML+='<div class="branch-card reveal"><div class="bc-region">'+c.region+'</div><div class="bc-name">'+c.name+'</div><div class="bc-info">🕒 '+c.info+'<br>📍 '+c.ancer+'</div><a href="'+c.map+'" target="_blank" class="bc-map">🗺️ Lihat Peta</a></div>';
+  });
+  /* Booking select */
+  var sel=document.getElementById('bCabang');
+  dbCabang.forEach(function(c){
+    var o=document.createElement('option');o.value=c.id;o.textContent=c.name;sel.appendChild(o);
+  });
+  /* Date */
+  var today=new Date().toISOString().split('T')[0];
+  document.getElementById('bTanggal').min=today;
+  document.getElementById('bTanggal').value=today;
+  /* Inputs */
+  setupInput('iMesin','wM','cM');
+  setupInput('iRangka','wR','cR');
+  /* Scroll reveal */
+  var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}});},{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el)});
+  /* Modal backdrop */
+  document.getElementById('modalBg').addEventListener('click',function(e){if(e.target===this)tutupBooking();});
+})();
 
-    /* BOOKING MODAL */
-    function bukaBooking(){ document.getElementById('modalBg').classList.add('open'); }
-    function tutupBooking(){ document.getElementById('modalBg').classList.remove('open'); }
+function setupInput(iid,wid,cid){
+  var el=document.getElementById(iid),wrap=document.getElementById(wid),ctr=document.getElementById(cid);
+  el.addEventListener('input',function(){
+    this.value=this.value.replace(/[^0-9]/g,'');
+    var n=this.value.length;ctr.textContent=n+'/5';
+    if(n===5){wrap.classList.add('ok');ctr.classList.add('full');}
+    else{wrap.classList.remove('ok');ctr.classList.remove('full');}
+  });
+}
 
-    function updateInfoCabang(){
-      var id=document.getElementById('bCabang').value;
-      var c=dbCabang.find(function(x){return x.id===id;});
-      var box=document.getElementById('cabangDetail');
-      if(c){
-        box.style.display='block';
-        box.innerHTML='<span class="bc-name">'+c.name+'</span>🕒 '+c.info+'<br>📍 '+c.ancer+'<br><a href="'+c.map+'" target="_blank" class="btn-map">🗺️ Buka Google Maps</a>';
-      } else { box.style.display='none'; }
-    }
+/* ── SCROLL UTIL ── */
+function scrollTo(id){
+  var el=document.querySelector(id);
+  if(el)el.scrollIntoView({behavior:'smooth',block:'start'});
+}
 
-    function kirimBooking(){
-      var nama=document.getElementById('bNama').value.trim();
-      var hp=document.getElementById('bHP').value.trim();
-      var motor=document.getElementById('bMotor').value;
-      var jenis=document.getElementById('bJenis').value;
-      var cabangID=document.getElementById('bCabang').value;
-      var tgl=document.getElementById('bTanggal').value;
-      var jam=document.getElementById('bJam').value;
-      if(!nama){ alert('Nama lengkap wajib diisi!'); return; }
-      if(!hp)  { alert('Nomor WhatsApp wajib diisi!'); return; }
-      if(!cabangID){ alert('Pilih lokasi bengkel!'); return; }
-      if(!tgl) { alert('Pilih tanggal booking!'); return; }
-      var c=dbCabang.find(function(x){return x.id===cabangID;});
-      var tglFmt=new Date(tgl).toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
-      var lines=[
-        'Halo Kak, Salam Satu Hati 🙏','',
-        'Saya ingin melakukan Booking Service:','',
-        '👤 Nama      : '+nama,
-        '📱 WhatsApp  : '+hp,
-        '🏍️ Motor     : '+motor,
-        '🔧 Service   : '+jenis,
-        '📍 Bengkel   : '+c.name,
-        '📅 Jadwal    : '+tglFmt+', Pkl. '+jam+' WIB','',
-        'Terima kasih 🙏 Salam Satu Hati'
-      ];
-      window.open('https://wa.me/'+c.hp+'?text='+lines.join('%0A'),'_blank');
-    }
-  </script>
+/* ── MOBILE NAV ── */
+function toggleMobileNav(){
+  document.getElementById('mobileNav').classList.toggle('open');
+}
+
+/* ── RESET ── */
+function resetForm(){
+  ['iMesin','iRangka'].forEach(function(id){document.getElementById(id).value='';});
+  ['wM','wR'].forEach(function(id){document.getElementById(id).classList.remove('ok');});
+  ['cM','cR'].forEach(function(id){var e=document.getElementById(id);e.textContent='0/5';e.classList.remove('full');});
+  document.getElementById('hasilPencarian').innerHTML='';
+  document.getElementById('iMesin').focus();
+}
+
+/* ── SEARCH ── */
+function lakukanPencarian(){
+  var m=document.getElementById('iMesin').value.trim();
+  var r=document.getElementById('iRangka').value.trim();
+  if(m.length!==5||r.length!==5){alert('Harap isi 5 digit angka terakhir No. Mesin dan No. Rangka.');return;}
+  var ld=document.getElementById('loadingBar'),hs=document.getElementById('hasilPencarian');
+  ld.style.display='flex';hs.innerHTML='';
+  fetch(GAS_URL+'?action=cariData&mesin='+encodeURIComponent(m)+'&rangka='+encodeURIComponent(r))
+    .then(function(res){return res.json();})
+    .then(function(data){ld.style.display='none';tampilHasil(data);})
+    .catch(function(){ld.style.display='none';renderAlert('Koneksi Gagal','Tidak dapat terhubung ke server. Coba lagi beberapa saat.');});
+}
+
+function tampilHasil(data){
+  var el=document.getElementById('hasilPencarian');
+  if(!data||(typeof data==='string'&&data.includes('Error'))||(data&&data.error)){renderAlert('Terjadi Kesalahan',data&&data.error?data.error:'Respons server tidak valid.');return;}
+  if(!Array.isArray(data)||data.length===0){renderAlert('Data Tidak Ditemukan','Nomor mesin/rangka tidak ditemukan. Pastikan 5 digit terakhir sudah benar, atau hubungi dealer kami via WhatsApp.');return;}
+  var html='';
+  data.forEach(function(d){
+    var sOk=(d.stat_stnk||'').toUpperCase().includes('SELESAI');
+    var pOk=(d.stat_plat||'').toUpperCase().includes('SELESAI');
+    var bOk=(d.stat_bpkb||'').toUpperCase().includes('SELESAI');
+    function bdg(ok,text){return'<span class="badge '+(ok?'badge-ok':'badge-wip')+'">'+esc(text||(ok?'SELESAI':'DALAM PROSES'))+'</span>';}
+    function drow(ok,tgl){return(ok&&tgl&&tgl!=='-')?'<div class="doc-date-sm">Selesai: '+esc(tgl)+'</div>':'';}
+    html+='<div class="rcard">';
+    html+='<div class="rcard-head"><div class="rcard-name">'+esc(d.nama)+'</div>';
+    if(d.nopol&&d.nopol!=='-')html+='<div class="rcard-nopol">'+esc(d.nopol)+'</div>';
+    html+='</div>';
+    html+='<div class="rcard-meta"><div class="rcard-meta-cell"><div class="rml">No. Mesin</div><div class="rmv">···'+esc(String(d.mesin).slice(-5))+'</div></div>';
+    html+='<div class="rcard-meta-cell"><div class="rml">No. Rangka</div><div class="rmv">···'+esc(String(d.rangka).slice(-5))+'</div></div></div>';
+    html+='<div class="doc-row"><div class="doc-idx">1</div><div class="doc-info"><div class="doc-name">STNK</div><div class="doc-sublbl">Surat Tanda Nomor Kendaraan</div></div><div>'+bdg(sOk,d.stat_stnk)+drow(sOk,d.tgl_stnk)+'</div></div>';
+    html+='<div class="doc-row"><div class="doc-idx">2</div><div class="doc-info"><div class="doc-name">Plat Nomor</div><div class="doc-sublbl">Tanda Nomor Kendaraan Bermotor</div></div><div>'+bdg(pOk,d.stat_plat)+drow(pOk,d.tgl_plat)+'</div></div>';
+    html+='<div class="doc-row"><div class="doc-idx">3</div><div class="doc-info"><div class="doc-name">BPKB</div><div class="doc-sublbl">Buku Pemilik Kendaraan Bermotor</div></div><div>'+bdg(bOk,d.stat_bpkb)+drow(bOk,d.tgl_bpkb)+'</div></div>';
+    html+='</div>';
+  });
+  el.innerHTML=html;
+}
+
+function renderAlert(t,d){document.getElementById('hasilPencarian').innerHTML='<div class="alert-box"><div class="alert-title">'+esc(t)+'</div><div class="alert-desc">'+esc(d)+'</div></div>';}
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+/* ── KPB ── */
+function hitungKPB(){
+  var motor=document.getElementById('kpbMotor').value;
+  var tgl=document.getElementById('kpbTanggal').value;
+  if(!tgl){alert('Pilih tanggal pembelian terlebih dahulu!');return;}
+  var is3=motor.indexOf('150')>-1||motor.indexOf('160')>-1||motor.indexOf('250')>-1;
+  var tglBeli=new Date(tgl);
+  function addM(d,m){var r=new Date(d);r.setMonth(r.getMonth()+m);return r;}
+  function fmt(d){return d.toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'});}
+  function item(n,title,date,desc){
+    return'<div class="t-item"><div class="t-dot"></div><div class="t-tag">KPB '+n+'</div><div class="t-name">'+title+'</div><div class="t-date">Paling Lambat: '+fmt(date)+'</div><div class="t-sub">'+desc+'</div></div>';
+  }
+  var html=item(1,'Gratis Oli + Jasa Service',addM(tglBeli,2),'Maksimal 1.000 km dari pembelian');
+  if(is3){html+=item(2,'Gratis Jasa Service',addM(tglBeli,6),'Maks. 6.000 km');html+=item(3,'Gratis Jasa Service',addM(tglBeli,12),'Maks. 12.000 km');}
+  else{html+=item(2,'Gratis Jasa Service',addM(tglBeli,4),'Maks. 6.000 km');html+=item(3,'Gratis Jasa Service',addM(tglBeli,8),'Maks. 12.000 km');html+=item(4,'Gratis Jasa Service',addM(tglBeli,12),'Maks. 12 bulan / 12.000 km');}
+  document.getElementById('timelineKPB').innerHTML=html;
+  document.getElementById('hasilKPB').style.display='block';
+  document.getElementById('hasilKPB').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+/* ── BOOKING MODAL ── */
+function bukaBooking(){document.getElementById('modalBg').classList.add('open');document.body.style.overflow='hidden';}
+function tutupBooking(){document.getElementById('modalBg').classList.remove('open');document.body.style.overflow='';}
+
+function updateInfoCabang(){
+  var id=document.getElementById('bCabang').value;
+  var c=dbCabang.find(function(x){return x.id===id;});
+  var box=document.getElementById('cabangDetail');
+  if(c){box.style.display='block';box.innerHTML='<span class="binfo-name">'+c.name+'</span>🕒 '+c.info+'<br>📍 '+c.ancer+'<br><a href="'+c.map+'" target="_blank" class="btn-maps">🗺️ Buka Google Maps</a>';}
+  else{box.style.display='none';}
+}
+
+function kirimBooking(){
+  var nama=document.getElementById('bNama').value.trim();
+  var hp=document.getElementById('bHP').value.trim();
+  var motor=document.getElementById('bMotor').value;
+  var jenis=document.getElementById('bJenis').value;
+  var cabangID=document.getElementById('bCabang').value;
+  var tgl=document.getElementById('bTanggal').value;
+  var jam=document.getElementById('bJam').value;
+  if(!nama){alert('Nama lengkap wajib diisi!');return;}
+  if(!hp){alert('Nomor WhatsApp wajib diisi!');return;}
+  if(!cabangID){alert('Pilih lokasi bengkel!');return;}
+  if(!tgl){alert('Pilih tanggal booking!');return;}
+  var c=dbCabang.find(function(x){return x.id===cabangID;});
+  var tglFmt=new Date(tgl).toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  var lines=[
+    'Halo Kak, Salam Satu Hati 🙏','',
+    'Saya ingin melakukan Booking Service:','',
+    '👤 Nama      : '+nama,
+    '📱 WhatsApp  : '+hp,
+    '🏍️ Motor     : '+motor,
+    '🔧 Service   : '+jenis,
+    '📍 Bengkel   : '+c.name,
+    '📅 Jadwal    : '+tglFmt+', Pkl. '+jam+' WIB','',
+    'Terima kasih 🙏 Salam Satu Hati'
+  ];
+  window.open('https://wa.me/'+c.hp+'?text='+lines.join('%0A'),'_blank');
+}
+</script>
 </body>
 </html>
